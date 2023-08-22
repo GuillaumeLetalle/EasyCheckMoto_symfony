@@ -3,8 +3,12 @@
 namespace App\Form;
 
 use App\Entity\CT;
+use App\Entity\Moto;
+use App\Entity\Technicien;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CTType extends AbstractType
@@ -26,9 +30,18 @@ class CTType extends AbstractType
             ->add('niveau_sonore')
             ->add('moto_is_ok')
             ->add('commentaires')
-            ->add('vehicule_controle')
-            ->add('technicien_controle')
-        ;
+            ->add('vehicule_controle', EntityType::class, [
+                'label' => 'moto',
+                'class' => Moto::class,
+                'choice_label' => 'immatriculation',
+                'required' => true,
+            ])
+            ->add('technicien_controle', EntityType::class, [
+                'label' => 'technicien',
+                'class' => Technicien::class,
+                'choice_label' => 'name',
+                'required' => true,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

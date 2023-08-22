@@ -235,6 +235,11 @@ class CT
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->vehicule_controle;
+    }
+
     public function getVehiculeControle(): ?moto
     {
         return $this->vehicule_controle;

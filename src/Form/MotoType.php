@@ -2,9 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Client;
 use App\Entity\Moto;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MotoType extends AbstractType
@@ -17,7 +20,12 @@ class MotoType extends AbstractType
             ->add('cylindree')
             ->add('annee')
             ->add('immatriculation')
-            ->add('client')
+            ->add('client', EntityType::class, [
+                'label' => 'client',
+                'class' => Client::class,
+                'choice_label' => 'name',
+                'required' => true,
+            ])
         ;
     }
 

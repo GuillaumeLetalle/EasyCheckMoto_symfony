@@ -26,35 +26,35 @@ class CTController extends AbstractController
     #[Route('/new', name: 'app_ct_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $cT = new CT();
-        $form = $this->createForm(CTType::class, $cT);
+        $ct = new CT();
+        $form = $this->createForm(CTType::class, $ct);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($cT);
+            $entityManager->persist($ct);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_ct_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('ct/new.html.twig', [
-            'ct' => $cT,
+            'ct' => $ct,
             'form' => $form,
         ]);
     }
 
     #[Route('/{id}', name: 'app_ct_show', methods: ['GET'])]
-    public function show(CT $cT): Response
+    public function show(CT $ct): Response
     {
         return $this->render('ct/show.html.twig', [
-            'c_t' => $cT,
+            'ct' => $ct,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_ct_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, CT $cT, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, CT $ct, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(CTType::class, $cT);
+        $form = $this->createForm(CTType::class, $ct);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -64,16 +64,16 @@ class CTController extends AbstractController
         }
 
         return $this->render('ct/edit.html.twig', [
-            'ct' => $cT,
+            'ct' => $ct,
             'form' => $form,
         ]);
     }
 
     #[Route('/{id}', name: 'app_ct_delete', methods: ['POST'])]
-    public function delete(Request $request, CT $cT, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, CT $ct, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $cT->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($cT);
+        if ($this->isCsrfTokenValid('delete' . $ct->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($ct);
             $entityManager->flush();
         }
 

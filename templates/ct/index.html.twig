@@ -8,10 +8,10 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                {# <th>Id</th> #}
                 <th>Debut</th>
                 <th>Fin</th>
-                <th>Freinage</th>
+                {# <th>Freinage</th>
                 <th>Direction</th>
                 <th>Visibilite</th>
                 <th>Eclairage_signalisation</th>
@@ -22,17 +22,17 @@
                 <th>Pollution</th>
                 <th>Niveau_sonore</th>
                 <th>Moto_is_ok</th>
-                <th>Commentaires</th>
+                <th>Commentaires</th> #}
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for ct in cts %}
             <tr>
-                <td>{{ ct.id }}</td>
-                <td>{{ ct.debut ? ct.debut|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ ct.fin ? ct.fin|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ ct.freinage ? 'Yes' : 'No' }}</td>
+                {# <td>{{ ct.id }}</td> #}
+                <td>{{ ct.debut ? ct.debut|date('d-m-Y H:i:s') : '' }}</td>
+                <td>{{ ct.fin ? ct.fin|date('d-m-Y H:i:s') : '' }}</td>
+                {# <td>{{ ct.freinage ? 'Yes' : 'No' }}</td>
                 <td>{{ ct.direction ? 'Yes' : 'No' }}</td>
                 <td>{{ ct.visibilite ? 'Yes' : 'No' }}</td>
                 <td>{{ ct.eclairageSignalisation ? 'Yes' : 'No' }}</td>
@@ -42,7 +42,7 @@
                 <td>{{ ct.pollution ? 'Yes' : 'No' }}</td>
                 <td>{{ ct.niveauSonore ? 'Yes' : 'No' }}</td>
                 <td>{{ ct.motoIsOk ? 'Yes' : 'No' }}</td>
-                <td>{{ ct.commentaires }}</td>
+                <td>{{ ct.commentaires }}</td> #}
                 <td>
                     <a href="{{ path('app_ct_show', {'id': ct.id}) }}">show</a>
                     <a href="{{ path('app_ct_edit', {'id': ct.id}) }}">edit</a>

@@ -2,21 +2,102 @@ security:
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+        App\Entity\User :
+            algorithm : auto
+        App\Entity\Team :
+            algorithm : auto
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
+        users_in_memory : { memory : null }   
         # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
+        app_technicien_provider:
             entity:
-                class: App\Entity\TeamECM
+                class: App\Entity\Technicien
                 property: username
         # used to reload user from session & other features (e.g. switch_user)
+        app_client_provider:
+            entity:
+                class: App\Entity\Client
+                property: email
+
+        all_users :
+            chain :
+              providers : [ app_technicien_provider, app_client_provider ]
+
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        admin_secure_area :
+            pattern : ^/technicien
+            provider : app_technicien_provider
+            form_login :
+                login_path : app_login
+                check_path : app_login
+                default_target_path : app_tech
+                username_parameter : login[username]
+                password_parameter : login[password]
+                enable_csrf : true
+            logout :
+                path : app_logout
+                # where to redirect after logout
+                target : app_login
+                invalidate_session : true
+                # configuring the maximum login attemps (per minute)
+            login_throttling :
+                max_attempts : 3
+            custom_authenticator : App\Security\AppTechAuthenticator
+            entry_point : form_login
+
+            remember_me :
+                secret : '%kernel.secret%'
+                lifetime : 604800
+                path : /
+                always_remember_me : true
+
+        user_secure_area :
+            pattern : ^/client
+            provider : app_client_provider
+            form_login :
+                login_path : client_login
+                check_path : client_login
+                default_target_path : app_user
+                username_parameter : login[email]
+                password_parameter : login[password]
+                enable_csrf : true
+            logout :
+                path : client_logout
+                # where to redirect after logout
+                target : client_login
+                invalidate_session : true
+                # configuring the maximum login attemps (per minute)
+            login_throttling :
+                max_attempts : 3
+            custom_authenticator : App\Security\AppClientAuthenticator
+            entry_point : form_login
+
+            remember_me :
+                secret : '%kernel.secret%'
+                lifetime : 604800
+                path : /
+                always_remember_me : true
+
         main:
             lazy: true
             provider: app_user_provider
+            # custom_authenticator: App\Security\AppTechAuthenticator
+            # logout:
+                # path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
+
+            # remember_me:
+            #     secret: '%kernel.secret%'
+            #     lifetime: 604800
+            #     path: /
+            #     always_remember_me: true
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -26,9 +107,17 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
+    role_hierarchy :
+        ROLE_CLIENT : ROLE_USER
+        ROLE_TECHNICIEN : ROLE_CLIENT
+        ROLE_ADMIN : ROLE_TECHNICIEN
+        ROLE_SUPER_ADMIN : [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/technicien, roles: ROLE_TECHNICIEN }
+        - { path : ^/technicien/login, roles : PUBLIC_ACCESS }
+        - { path : ^/client/login, roles : PUBLIC_ACCESS }
+        - { path: ^/client, roles: ROLE_CLIENT }
 
 when@test:
     security:

@@ -9,70 +9,70 @@
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ c_t.id }}</td>
+                <td>{{ ct.id }}</td>
             </tr>
             <tr>
                 <th>Debut</th>
-                <td>{{ c_t.debut ? c_t.debut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ ct.debut ? ct.debut|date('d-m-Y H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>Fin</th>
-                <td>{{ c_t.fin ? c_t.fin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ ct.fin ? ct.fin|date('d-m-Y H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>Freinage</th>
-                <td>{{ c_t.freinage ? 'Yes' : 'No' }}</td>
+                <td>{{ ct.freinage ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
                 <th>Direction</th>
-                <td>{{ c_t.direction ? 'Yes' : 'No' }}</td>
+                <td>{{ ct.direction ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
                 <th>Visibilite</th>
-                <td>{{ c_t.visibilite ? 'Yes' : 'No' }}</td>
+                <td>{{ ct.visibilite ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
                 <th>Eclairage_signalisation</th>
-                <td>{{ c_t.eclairageSignalisation ? 'Yes' : 'No' }}</td>
+                <td>{{ ct.eclairageSignalisation ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
                 <th>Pneumatique</th>
-                <td>{{ c_t.pneumatique ? 'Yes' : 'No' }}</td>
+                <td>{{ ct.pneumatique ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
                 <th>Carrosserie</th>
-                <td>{{ c_t.carrosserie ? 'Yes' : 'No' }}</td>
+                <td>{{ ct.carrosserie ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
                 <th>Mecanique</th>
-                <td>{{ c_t.mecanique ? 'Yes' : 'No' }}</td>
+                <td>{{ ct.mecanique ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
                 <th>Equipement</th>
-                <td>{{ c_t.equipement ? 'Yes' : 'No' }}</td>
+                <td>{{ ct.equipement ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
                 <th>Pollution</th>
-                <td>{{ c_t.pollution ? 'Yes' : 'No' }}</td>
+                <td>{{ ct.pollution ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
                 <th>Niveau_sonore</th>
-                <td>{{ c_t.niveauSonore ? 'Yes' : 'No' }}</td>
+                <td>{{ ct.niveauSonore ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
                 <th>Moto_is_ok</th>
-                <td>{{ c_t.motoIsOk ? 'Yes' : 'No' }}</td>
+                <td>{{ ct.motoIsOk ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
                 <th>Commentaires</th>
-                <td>{{ c_t.commentaires }}</td>
+                <td>{{ ct.commentaires }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_c_t_index') }}">back to list</a>
+    <a href="{{ path('app_ct_index') }}">back to list</a>
 
-    <a href="{{ path('app_c_t_edit', {'id': c_t.id}) }}">edit</a>
+    <a href="{{ path('app_ct_edit', {'id': ct.id}) }}">edit</a>
 
     {{ include('ct/_delete_form.html.twig') }}
 {% endblock %}
