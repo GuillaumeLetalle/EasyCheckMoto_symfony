@@ -56,10 +56,10 @@ class CT
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $commentaires = null;
 
-    #[ORM\ManyToOne(inversedBy: 'controle_techniques')]
+    #[ORM\ManyToOne(targetEntity: Moto::class, inversedBy: 'controle_techniques')]
     private ?moto $vehicule_controle = null;
 
-    #[ORM\ManyToOne(inversedBy: 'controle_techniques')]
+    #[ORM\ManyToOne(targetEntity: Technicien::class, inversedBy: 'controle_techniques')]
     private ?Technicien $technicien_controle = null;
 
     public function getId(): ?int

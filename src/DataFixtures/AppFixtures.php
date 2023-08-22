@@ -8,7 +8,7 @@ use App\Entity\Moto;
 use App\Entity\CT;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Faker\Factory as FakerFactory;
+use Faker\Factory;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
@@ -133,7 +133,7 @@ class AppFixtures extends Fixture
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         $this->passwordHasher = $passwordHasher;
-        $this->faker = FakerFactory::create('fr_FR');
+        $this->faker = Factory::create('fr_FR');
     }
 
     public function load(ObjectManager $manager): void

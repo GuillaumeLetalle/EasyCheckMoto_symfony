@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CT{% endblock %}
+
+{% block body %}
+    <h1>Create new CT</h1>
+
+    {{ include('ct/_form.html.twig') }}
+
+    <a href="{{ path('app_c_t_index') }}">back to list</a>
+{% endblock %}

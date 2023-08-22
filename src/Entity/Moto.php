@@ -30,7 +30,7 @@ class Moto
     #[ORM\Column(length: 15)]
     private ?string $immatriculation = null;
 
-    #[ORM\ManyToOne(inversedBy: 'motos')]
+    #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'motos')]
     #[ORM\JoinColumn(nullable: false)]
     private ?client $client = null;
 

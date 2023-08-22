@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CT{% endblock %}
+
+{% block body %}
+    <h1>CT</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ c_t.id }}</td>
+            </tr>
+            <tr>
+                <th>Debut</th>
+                <td>{{ c_t.debut ? c_t.debut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fin</th>
+                <td>{{ c_t.fin ? c_t.fin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Freinage</th>
+                <td>{{ c_t.freinage ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Direction</th>
+                <td>{{ c_t.direction ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Visibilite</th>
+                <td>{{ c_t.visibilite ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Eclairage_signalisation</th>
+                <td>{{ c_t.eclairageSignalisation ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Pneumatique</th>
+                <td>{{ c_t.pneumatique ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Carrosserie</th>
+                <td>{{ c_t.carrosserie ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Mecanique</th>
+                <td>{{ c_t.mecanique ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Equipement</th>
+                <td>{{ c_t.equipement ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Pollution</th>
+                <td>{{ c_t.pollution ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Niveau_sonore</th>
+                <td>{{ c_t.niveauSonore ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Moto_is_ok</th>
+                <td>{{ c_t.motoIsOk ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Commentaires</th>
+                <td>{{ c_t.commentaires }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_c_t_index') }}">back to list</a>
+
+    <a href="{{ path('app_c_t_edit', {'id': c_t.id}) }}">edit</a>
+
+    {{ include('ct/_delete_form.html.twig') }}
+{% endblock %}
