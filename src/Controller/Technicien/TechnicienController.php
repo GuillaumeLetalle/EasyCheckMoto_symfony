@@ -12,7 +12,7 @@ class TechnicienController extends AbstractController
     #[Route('/', name: 'technicien_home')]
     public function index(): Response
     {
-        return $this->render('technicien/home.html.twig', [
+        return $this->render('home.html.twig', [
             'controller_name' => 'TechnicienController',
         ]);
     }
