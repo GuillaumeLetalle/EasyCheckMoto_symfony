@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Technicien;
 
 use App\Entity\Technicien;
 use App\Form\TechnicienType;
 use App\Repository\TechnicienRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-#[Route('/technicien')]
-class TechnicienController extends AbstractController
+#[Route('/technicien/user')]
+class TechnicienUserController extends AbstractController
 {
     #[Route('/', name: 'app_technicien_index', methods: ['GET'])]
     public function index(TechnicienRepository $technicienRepository): Response
@@ -23,7 +24,7 @@ class TechnicienController extends AbstractController
     }
 
     #[Route('/new', name: 'app_technicien_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $technicien = new Technicien();
         $form = $this->createForm(TechnicienType::class, $technicien);
@@ -42,7 +43,7 @@ class TechnicienController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_technicien_show', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'app_technicien_show', methods: ['GET'])]
     public function show(Technicien $technicien): Response
     {
         return $this->render('technicien/show.html.twig', [
@@ -68,7 +69,7 @@ class TechnicienController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_technicien_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_technicien_delete', methods: ['POST'])]
     public function delete(Request $request, Technicien $technicien, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$technicien->getId(), $request->request->get('_token'))) {

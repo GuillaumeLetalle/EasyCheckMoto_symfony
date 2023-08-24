@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Technicien;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/technicien')]
-class TechController extends AbstractController
+class TechnicienController extends AbstractController
 {
-    #[Route('/', name: 'app_tech')]
+    #[Route('/', name: 'technicien_home')]
     public function index(): Response
     {
-        return $this->render('tech/index.html.twig', [
-            'controller_name' => 'TechController',
+        return $this->render('technicien/home.html.twig', [
+            'controller_name' => 'TechnicienController',
         ]);
     }
 }

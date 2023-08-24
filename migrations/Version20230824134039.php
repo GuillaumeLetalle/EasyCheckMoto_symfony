@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230821134428 extends AbstractMigration
+final class Version20230824134039 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,7 +20,7 @@ final class Version20230821134428 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE client (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, name VARCHAR(25) NOT NULL, firstname VARCHAR(25) NOT NULL, phone VARCHAR(50) NOT NULL, UNIQUE INDEX UNIQ_C7440455E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE client (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, name VARCHAR(25) NOT NULL, firstname VARCHAR(25) NOT NULL, email VARCHAR(50) NOT NULL, phone VARCHAR(50) NOT NULL, UNIQUE INDEX UNIQ_C7440455F85E0677 (username), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE ct (id INT AUTO_INCREMENT NOT NULL, vehicule_controle_id INT DEFAULT NULL, technicien_controle_id INT DEFAULT NULL, debut DATETIME NOT NULL, fin DATETIME DEFAULT NULL, freinage TINYINT(1) DEFAULT NULL, direction TINYINT(1) DEFAULT NULL, visibilite TINYINT(1) DEFAULT NULL, eclairage_signalisation TINYINT(1) DEFAULT NULL, pneumatique TINYINT(1) DEFAULT NULL, carrosserie TINYINT(1) DEFAULT NULL, mecanique TINYINT(1) DEFAULT NULL, equipement TINYINT(1) DEFAULT NULL, pollution TINYINT(1) DEFAULT NULL, niveau_sonore TINYINT(1) DEFAULT NULL, moto_is_ok TINYINT(1) DEFAULT NULL, commentaires LONGTEXT DEFAULT NULL, INDEX IDX_58619FBE33BC8745 (vehicule_controle_id), INDEX IDX_58619FBE77DE0BA9 (technicien_controle_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE moto (id INT AUTO_INCREMENT NOT NULL, client_id INT NOT NULL, marque VARCHAR(50) DEFAULT NULL, modele VARCHAR(50) DEFAULT NULL, cylindree VARCHAR(10) DEFAULT NULL, annee VARCHAR(10) DEFAULT NULL, immatriculation VARCHAR(15) NOT NULL, INDEX IDX_3DDDBCE419EB6921 (client_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE technicien (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, name VARCHAR(25) NOT NULL, firstname VARCHAR(25) NOT NULL, UNIQUE INDEX UNIQ_96282C4CF85E0677 (username), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');

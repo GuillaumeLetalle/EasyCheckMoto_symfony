@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/ct')]
 class CTController extends AbstractController
 {
-    #[Route('/', name: 'app_ct_index', methods: ['GET'])]
+    #[Route('/index', name: 'app_ct_index', methods: ['GET'])]
     public function index(CTRepository $cTRepository): Response
     {
 
@@ -43,7 +43,7 @@ class CTController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_ct_show', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'app_ct_show', methods: ['GET'])]
     public function show(CT $ct): Response
     {
         return $this->render('ct/show.html.twig', [
@@ -69,7 +69,7 @@ class CTController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_ct_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_ct_delete', methods: ['POST'])]
     public function delete(Request $request, CT $ct, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $ct->getId(), $request->request->get('_token'))) {

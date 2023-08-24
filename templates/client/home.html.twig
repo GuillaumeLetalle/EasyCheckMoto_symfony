@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block body %}
+
+    {% if app.user %}
+        Welcome
+    {% endif %}
+
+   
+    {% if is_granted('ROLE_Client') %}
+        Client
+    {% endif %}
+
+
+{% endblock %}

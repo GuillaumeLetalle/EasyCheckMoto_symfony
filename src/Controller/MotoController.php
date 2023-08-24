@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/moto')]
 class MotoController extends AbstractController
 {
-    #[Route('/', name: 'app_moto_index', methods: ['GET'])]
+    #[Route('/index', name: 'app_moto_index', methods: ['GET'])]
     public function index(MotoRepository $motoRepository): Response
     {
         return $this->render('moto/index.html.twig', [
@@ -42,7 +42,7 @@ class MotoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_moto_show', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'app_moto_show', methods: ['GET'])]
     public function show(Moto $moto): Response
     {
         return $this->render('moto/show.html.twig', [
@@ -68,7 +68,7 @@ class MotoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_moto_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_moto_delete', methods: ['POST'])]
     public function delete(Request $request, Moto $moto, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$moto->getId(), $request->request->get('_token'))) {

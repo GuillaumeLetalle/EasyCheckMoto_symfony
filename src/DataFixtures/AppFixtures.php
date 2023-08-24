@@ -183,41 +183,42 @@ class AppFixtures extends Fixture
 
     protected function clientFixtures($manager): void
     {
-        for ($i = 1; $i <= 35; $i++) {
-            $user[$i] = new Client;
-            $user[$i]->setEmail('user' . $i . '@gmail.fr');
-            $user[$i]->setFirstname($this->faker->firstName);
-            $user[$i]->setname($this->faker->lastName);
-            $user[$i]->setRoles(['ROLE_CLIENT']);
+        for ($i = 1; $i <= 20; $i++) {
+            $user = new Client;
+            $user->setEmail('user' . $i . '@gmail.fr');
+            $user->setUsername('user' . $i);
+            $user->setFirstname($this->faker->firstName);
+            $user->setname($this->faker->lastName);
+            $user->setRoles(['ROLE_CLIENT']);
             $hashedPassword = $this->passwordHasher->hashPassword(
-                $user[$i],
+                $user,
                 'TrucdeOuf'
             );
-            $user[$i]->setPassword($hashedPassword);
+            $user->setPassword($hashedPassword);
             $numero = $this->faker->randomElement($this->numerosTelephone);
-            $user[$i]->setPhone($numero);
-            $manager->persist($user[$i]);
+            $user->setPhone($numero);
+            $manager->persist($user);
         }
         $manager->flush();
     }
 
     protected function motoFixtures($manager): void
     {
-        for ($i = 1; $i <= 40; $i++) {
-            $moto[$i] = new Moto;
+        for ($i = 1; $i <= 25; $i++) {
+            $moto = new Moto;
             $marque = $this->faker->randomElement($this->marquesMoto);
-            $moto[$i]->setMarque($marque);
+            $moto->setMarque($marque);
             $modele = $this->faker->randomElement($this->modelesMoto);
-            $moto[$i]->setModele($modele);
+            $moto->setModele($modele);
             $annees = range(1980, 2023);
             $annee = $this->faker->randomElement($annees);
-            $moto[$i]->setAnnee($this->faker->numberBetween($annee, $annee));
-            $moto[$i]->setClient($this->getRandomReference('App\Entity\Client', $manager));
+            $moto->setAnnee($this->faker->numberBetween($annee, $annee));
+            $moto->setClient($this->getRandomReference('App\Entity\Client', $manager));
             $cylindree = $this->faker->randomElement($this->cylindreesMoto);
-            $moto[$i]->setCylindree($cylindree . 'cm³');
+            $moto->setCylindree($cylindree . 'cm³');
             $plaque = $this->faker->randomElement($this->plaquesImmatriculation);
-            $moto[$i]->setImmatriculation($plaque);
-            $manager->persist($moto[$i]);
+            $moto->setImmatriculation($plaque);
+            $manager->persist($moto);
         }
         $manager->flush();
     }
@@ -226,27 +227,27 @@ class AppFixtures extends Fixture
     {
 
         for ($i = 1; $i <= 15; $i++) {
-            $controle[$i] = new CT;
+            $controle = new CT;
             $dateDebut = $this->faker->dateTimeBetween('-3 month', 'now');
             $decalageHeures = $this->faker->numberBetween(1, 1);
             $dateFin = clone $dateDebut;
             $dateFin->modify("+$decalageHeures hours");
-            $controle[$i]->setdebut($dateDebut);
-            $controle[$i]->setfin($dateFin);
-            $controle[$i]->setVehiculeControle($this->getRandomReference('App\Entity\Moto', $manager));
-            $controle[$i]->setTechnicienControle($this->getRandomReference('App\Entity\Technicien', $manager));
-            $controle[$i]->setFreinage(mt_rand(0, 1));
-            $controle[$i]->setDirection(mt_rand(0, 1));
-            $controle[$i]->setVisibilite(mt_rand(0, 1));
-            $controle[$i]->setEclairageSignalisation(mt_rand(0, 1));
-            $controle[$i]->setPneumatique(mt_rand(0, 1));
-            $controle[$i]->setCarrosserie(mt_rand(0, 1));
-            $controle[$i]->setMecanique(mt_rand(0, 1));
-            $controle[$i]->setEquipement(mt_rand(0, 1));
-            $controle[$i]->setPollution(mt_rand(0, 1));
-            $controle[$i]->setNiveauSonore(mt_rand(0, 1));
-            $controle[$i]->setMotoIsOk('null');
-            $manager->persist($controle[$i]);
+            $controle->setdebut($dateDebut);
+            $controle->setfin($dateFin);
+            $controle->setVehiculeControle($this->getRandomReference('App\Entity\Moto', $manager));
+            $controle->setTechnicienControle($this->getRandomReference('App\Entity\Technicien', $manager));
+            $controle->setFreinage(mt_rand(0, 1));
+            $controle->setDirection(mt_rand(0, 1));
+            $controle->setVisibilite(mt_rand(0, 1));
+            $controle->setEclairageSignalisation(mt_rand(0, 1));
+            $controle->setPneumatique(mt_rand(0, 1));
+            $controle->setCarrosserie(mt_rand(0, 1));
+            $controle->setMecanique(mt_rand(0, 1));
+            $controle->setEquipement(mt_rand(0, 1));
+            $controle->setPollution(mt_rand(0, 1));
+            $controle->setNiveauSonore(mt_rand(0, 1));
+            $controle->setMotoIsOk('null');
+            $manager->persist($controle);
         }
         $manager->flush();
     }
