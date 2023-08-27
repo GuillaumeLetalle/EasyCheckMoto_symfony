@@ -236,6 +236,7 @@ class AppFixtures extends Fixture
             $controle->setfin($dateFin);
             $controle->setVehiculeControle($this->getRandomReference('App\Entity\Moto', $manager));
             $controle->setTechnicienControle($this->getRandomReference('App\Entity\Technicien', $manager));
+            $controle->setClient($this->getRandomReference('App\Entity\Client', $manager));
             $controle->setFreinage(mt_rand(0, 1));
             $controle->setDirection(mt_rand(0, 1));
             $controle->setVisibilite(mt_rand(0, 1));

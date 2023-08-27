@@ -62,6 +62,9 @@ class CT
     #[ORM\ManyToOne(targetEntity: Technicien::class, inversedBy: 'controle_techniques')]
     private ?Technicien $technicien_controle = null;
 
+    #[ORM\ManyToOne(inversedBy: 'ct')]
+    private ?Client $client = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -260,6 +263,18 @@ class CT
     public function setTechnicienControle(?Technicien $technicien_controle): static
     {
         $this->technicien_controle = $technicien_controle;
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): static
+    {
+        $this->client = $client;
 
         return $this;
     }

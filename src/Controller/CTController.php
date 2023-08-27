@@ -14,13 +14,18 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/ct')]
 class CTController extends AbstractController
 {
-    #[Route('/index', name: 'app_ct_index', methods: ['GET'])]
-    public function index(CTRepository $cTRepository): Response
+    #[Route('/index/{id?}', name: 'app_ct_index', methods: ['GET'])]
+    public function index(CTRepository $cTRepository, $id): Response
     {
-
-        return $this->render('ct/index.html.twig', [
-            'cts' => $cTRepository->findAll(),
-        ]);
+        if ($id === null) {
+            return $this->render('ct/index.html.twig', [
+                'cts' => $cTRepository->findAll(),
+            ]);
+        } else {
+            return $this->render('ct/index.html.twig', [
+                'cts' => $cTRepository->findby(['client' => $id]),
+            ]);
+        }
     }
 
     #[Route('/new', name: 'app_ct_new', methods: ['GET', 'POST'])]

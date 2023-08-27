@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Client;
 use App\Entity\CT;
 use App\Entity\Moto;
 use App\Entity\Technicien;
@@ -34,6 +35,12 @@ class CTType extends AbstractType
                 'label' => 'moto',
                 'class' => Moto::class,
                 'choice_label' => 'immatriculation',
+                'required' => true,
+            ])
+            ->add('client', EntityType::class, [
+                'label' => 'client',
+                'class' => Client::class,
+                'choice_label' => 'name',
                 'required' => true,
             ])
             ->add('technicien_controle', EntityType::class, [

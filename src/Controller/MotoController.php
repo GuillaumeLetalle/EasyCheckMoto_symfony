@@ -6,20 +6,27 @@ use App\Entity\Moto;
 use App\Form\MotoType;
 use App\Repository\MotoRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/moto')]
 class MotoController extends AbstractController
 {
-    #[Route('/index', name: 'app_moto_index', methods: ['GET'])]
-    public function index(MotoRepository $motoRepository): Response
+    #[Route('/list/{id?}', name: 'app_moto_index', methods: ['GET'])]
+    public function index(MotoRepository $motoRepository,  $id): Response
     {
-        return $this->render('moto/index.html.twig', [
-            'motos' => $motoRepository->findAll(),
-        ]);
+
+        if ($id === null) {
+            return $this->render('moto/index.html.twig', [
+                'motos' => $motoRepository->findAll(),
+            ]);
+        } else {
+            return $this->render('moto/index.html.twig', [
+                'motos' => $motoRepository->findby(['client' => $id]),
+            ]);
+        }
     }
 
     #[Route('/new', name: 'app_moto_new', methods: ['GET', 'POST'])]
@@ -71,7 +78,7 @@ class MotoController extends AbstractController
     #[Route('/{id}/delete', name: 'app_moto_delete', methods: ['POST'])]
     public function delete(Request $request, Moto $moto, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$moto->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $moto->getId(), $request->request->get('_token'))) {
             $entityManager->remove($moto);
             $entityManager->flush();
         }

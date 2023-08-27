@@ -44,9 +44,14 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Moto::class, orphanRemoval: true)]
     private Collection $motos;
 
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: ct::class)]
+    private Collection $ct;
+
+    
     public function __construct()
     {
         $this->motos = new ArrayCollection();
+        $this->ct = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -191,6 +196,36 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($moto->getClient() === $this) {
                 $moto->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ct>
+     */
+    public function getCt(): Collection
+    {
+        return $this->ct;
+    }
+
+    public function addCt(ct $ct): static
+    {
+        if (!$this->ct->contains($ct)) {
+            $this->ct->add($ct);
+            $ct->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCt(ct $ct): static
+    {
+        if ($this->ct->removeElement($ct)) {
+            // set the owning side to null (unless already changed)
+            if ($ct->getClient() === $this) {
+                $ct->setClient(null);
             }
         }
 
