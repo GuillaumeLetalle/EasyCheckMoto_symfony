@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New CT{% endblock %}
+{# {% block title %}New CT{% endblock %} #}
 
 {% block body %}
-    <h1>Create new CT</h1>
+    <h1>Nouveau Contrôle Tehnique</h1>
 
     {{ include('ct/_form.html.twig') }}
 
-    <a href="{{ path('app_ct_index') }}">back to list</a>
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('app_ct_index') }}">Contrôles Techniques</a>
+    {% endif %}
+
+    <a href="{{ path('app_ct_indexTechnicien' , {'id': app.user.id})}}">Retour</a>
 {% endblock %}

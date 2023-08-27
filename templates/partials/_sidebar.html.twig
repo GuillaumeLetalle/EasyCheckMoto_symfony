@@ -9,14 +9,20 @@
     </a>
 
     <hr class="sidebar-divider my-0">
+    {% if not app.user  %}
     <li class="nav-item">
     <a class="nav-link" href="{{ path('app_login') }}">
             <i class="fa-solid fa-fw "></i>
             <span>Connexion</span>
-        </a>
-
-        
+        </a> 
     </li>
+    <li class="nav-item">
+    <a class="nav-link" href="{{ path('app_client_new') }}">
+            <i class="fa-solid fa-fw "></i>
+            <span>S'inscrire</span>
+        </a> 
+    </li>
+    {% endif %}
 
     <li class="nav-item">
         <a class="nav-link" href="{{ path('app_home') }}">
@@ -31,7 +37,6 @@
         {% endif %}
     </li>
 
-
     <hr class="sidebar-divider">
     
     {% if is_granted('ROLE_ADMIN') %}
@@ -42,8 +47,14 @@
 
     {% if is_granted('ROLE_TECHNICIEN') %}
        <li class="nav-item">
-        {# <a class="nav-link" href="{{ path('app_technicien_edit') }}"><span>Profil</span></a> #}
+        <a class="nav-link" href="{{ path('app_technicien_edit', {'id': app.user.id}) }}"><span>Mon profil</span></a>
     </li> 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_ct_indexTechnicien' , {'id': app.user.id}) }}"><span>Mes Contrôles techniques</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_ct_new') }}"><span>Création Contrôle technique</span></a>
+    </li>
     {% endif %}
     
     {% if is_granted('ROLE_CLIENT') %}

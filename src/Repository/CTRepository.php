@@ -21,6 +21,15 @@ class CTRepository extends ServiceEntityRepository
         parent::__construct($registry, CT::class);
     }
 
+    public function setCtToNull($idUser)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+            UPDATE ct c set technicien_controle_id = null 
+            WHERE c.technicien_controle_id = ' . $idUser;
+        $conn->executeQuery($sql);
+    }
+
 //    /**
 //     * @return CT[] Returns an array of CT objects
 //     */

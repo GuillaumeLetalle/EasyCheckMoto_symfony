@@ -44,8 +44,13 @@
                 <td>{{ ct.motoIsOk ? 'Yes' : 'No' }}</td>
                 <td>{{ ct.commentaires }}</td> #}
                 <td>
-                    <a href="{{ path('app_ct_show', {'id': ct.id}) }}">show</a>
-                    <a href="{{ path('app_ct_edit', {'id': ct.id}) }}">edit</a>
+                    {% if ct.fin != null %}
+                    <a href="{{ path('app_ct_show', {'id': ct.id}) }}">Voir</a>
+                    {% endif %}
+                    
+                    {% if ct.fin == null %}
+                    <a href="{{ path('app_ct_edit', {'id': ct.id}) }}">Effectuer</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -56,5 +61,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_ct_new') }}">Create new</a>
+    {# <a href="{{ path('app_ct_new') }}">Create new</a> #}
 {% endblock %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\CT;
 use App\Form\CTType;
+use App\Form\CreateCTType;
 use App\Repository\CTRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,18 +29,32 @@ class CTController extends AbstractController
         }
     }
 
+    #[Route('/indexTechnicien/{id?}', name: 'app_ct_indexTechnicien', methods: ['GET'])]
+    public function indexTechnicien(CTRepository $cTRepository, $id): Response
+    {
+        if ($id === null) {
+            return $this->render('ct/index.html.twig', [
+                'cts' => $cTRepository->findAll(),
+            ]);
+        } else {
+            return $this->render('ct/index.html.twig', [
+                'cts' => $cTRepository->findby(['technicien_controle' => $id]),
+            ]);
+        }
+    }
+
     #[Route('/new', name: 'app_ct_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $ct = new CT();
-        $form = $this->createForm(CTType::class, $ct);
+        $form = $this->createForm(CreateCTType::class, $ct);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($ct);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_ct_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('ct/new.html.twig', [
@@ -59,6 +74,7 @@ class CTController extends AbstractController
     #[Route('/{id}/edit', name: 'app_ct_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, CT $ct, EntityManagerInterface $entityManager): Response
     {
+        $now = Carbon::now();
         $form = $this->createForm(CTType::class, $ct);
         $form->handleRequest($request);
 

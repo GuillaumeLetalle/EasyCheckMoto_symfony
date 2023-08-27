@@ -45,7 +45,6 @@ security:
             
     role_hierarchy :
         ROLE_CLIENT : ROLE_USER
-        # ROLE_TECHNICIEN : ROLE_TECHNICIEN
         ROLE_ADMIN : ROLE_TECHNICIEN
         ROLE_SUPER_ADMIN : [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
 

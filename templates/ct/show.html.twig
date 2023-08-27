@@ -69,10 +69,14 @@
             </tr>
         </tbody>
     </table>
+    {# <a href="">Imprimer</a></br>  TODO#}
+    <a href="{{ path('app_ct_indexTechnicien' , {'id': app.user.id})}}">Retour à la liste</a>
+    
 
-    <a href="{{ path('app_ct_index') }}">back to list</a>
-
+    {% if ct.fin == null %}
     <a href="{{ path('app_ct_edit', {'id': ct.id}) }}">edit</a>
+    {% endif %}
 
-    {{ include('ct/_delete_form.html.twig') }}
+    {# {{ include('ct/_delete_form.html.twig') }} #}
+
 {% endblock %}
