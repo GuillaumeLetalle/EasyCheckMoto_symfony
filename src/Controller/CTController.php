@@ -108,4 +108,10 @@ class CTController extends AbstractController
 
         return $this->redirectToRoute('app_ct_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route(path: '/calendar', name: "app_ct_calendar", methods: ['GET'])]
+    public function calendar(): Response
+    {
+        return $this->render('calendar.html.twig');
+    }
 }

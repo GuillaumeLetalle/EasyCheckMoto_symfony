@@ -16,10 +16,12 @@
        {{ app.user.firstname }}  {{ app.user.name }}
     {% endif %}
 
-<div class="container-fluid">
+{# <div class="container-fluid">
 {% block calendar %}
 {{ include('calendar.html.twig') }}
 {% endblock %}
-</div>
+</div> #}
+
+<div id='calendar'></div>
 
 {% endblock %}
