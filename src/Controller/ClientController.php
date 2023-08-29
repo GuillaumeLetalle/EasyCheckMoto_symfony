@@ -42,10 +42,11 @@ class ClientController extends AbstractController
             );
             $client->setPassword($hasedPassword);
             $client->setRoles(['ROLE_CLIENT']);
+            $client->setUsername($client->getEmail());
             $entityManager->persist($client);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('client/new.html.twig', [
@@ -69,7 +70,7 @@ class ClientController extends AbstractController
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $passwordHasher,
     ): Response {
-        // $client = $this->getUser();
+        
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
@@ -81,6 +82,7 @@ class ClientController extends AbstractController
             );
             $client->setPassword($hasedPassword);
             $client->setRoles(['ROLE_CLIENT']);
+            $client->setUsername($client->getEmail());
             $entityManager->persist($client);
             $entityManager->flush();
 

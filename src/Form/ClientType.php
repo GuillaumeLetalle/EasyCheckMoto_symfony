@@ -18,17 +18,25 @@ class ClientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('name', TextType::class, [
+                'label' => 'nom',
+                'required' => true,
+            ])
+            ->add('firstname', TextType::class, [
+                'label' => 'prénom',
+                'required' => true,
+            ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'required' => true,
             ])
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'Client' => 'ROLE_CLIENT',
-                ],
-                'label' => 'Role',
-                'required' => true
-            ])
+            // ->add('roles', ChoiceType::class, [
+            //     'choices' => [
+            //         'Client' => 'ROLE_CLIENT',
+            //     ],
+            //     'label' => 'Role',
+            //     'required' => true
+            // ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'les mots de passe ne correspondent pas',
@@ -40,28 +48,20 @@ class ClientType extends AbstractType
                 'first_options'  => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Confirmation du mot de passe'],
             ])
-            ->add('name', TextType::class, [
-                'label' => 'nom',
-                'required' => true,
-            ])
-            ->add('firstname', TextType::class, [
-                'label' => 'prénom',
-                'required' => true,
-            ])
             ->add('phone', TextType::class, [
                 'label' => 'téléphone',
                 'required' => true,
             ]);
 
-        $builder->get('roles')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($rolesArray) {
-                    return count($rolesArray) ? $rolesArray[0] : null;
-                },
-                function ($rolesString) {
-                    return [$rolesString];
-                }
-            ));
+        // $builder->get('roles')
+        //     ->addModelTransformer(new CallbackTransformer(
+        //         function ($rolesArray) {
+        //             return count($rolesArray) ? $rolesArray[0] : null;
+        //         },
+        //         function ($rolesString) {
+        //             return [$rolesString];
+        //         }
+        //     ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

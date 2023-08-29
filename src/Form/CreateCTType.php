@@ -10,8 +10,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
+// use Symfony\Component\Form\Extension\Core\Type\DateType;
+// use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class CreateCTType extends AbstractType
@@ -22,24 +22,25 @@ class CreateCTType extends AbstractType
             ->add('debut', DateTimeType::class, [
                 'widget' => 'single_text',
             ])
-            ->add('vehicule_controle', EntityType::class, [
-                'label' => 'moto',
-                'class' => Moto::class,
-                'choice_label' => 'immatriculation',
-                'required' => true,
-            ])
+            // ->add('vehicule_controle', EntityType::class, [
+            //     'label' => 'moto',
+            //     'class' => Moto::class,
+            //     'choice_label' => 'immatriculation',
+            //     'required' => true,
+            // ])
             ->add('client', EntityType::class, [
                 'label' => 'client',
                 'class' => Client::class,
                 'choice_label' => 'name',
                 'required' => true,
             ])
-            ->add('technicien_controle', EntityType::class, [
-                'label' => 'technicien',
-                'class' => Technicien::class,
-                'choice_label' => 'name',
-                'required' => true,
-            ]);
+            // ->add('technicien_controle', EntityType::class, [
+            //     'label' => 'technicien',
+            //     'class' => Technicien::class,
+            //     'choice_label' => 'name',
+            //     'required' => true,
+            // ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

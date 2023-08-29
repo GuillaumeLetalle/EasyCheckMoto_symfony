@@ -3,14 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\CT;
+use Carbon\Carbon;
 use App\Form\CTType;
 use App\Form\CreateCTType;
 use App\Repository\CTRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/ct')]
 class CTController extends AbstractController
@@ -33,11 +34,12 @@ class CTController extends AbstractController
     public function indexTechnicien(CTRepository $cTRepository, $id): Response
     {
         if ($id === null) {
-            return $this->render('ct/index.html.twig', [
+            return $this->render('ct/ctok.html.twig', [
                 'cts' => $cTRepository->findAll(),
             ]);
         } else {
-            return $this->render('ct/index.html.twig', [
+            // dd( $cTRepository->findby(['technicien_controle' => $id]));
+            return $this->render('ct/ctok.html.twig', [
                 'cts' => $cTRepository->findby(['technicien_controle' => $id]),
             ]);
         }
@@ -75,10 +77,16 @@ class CTController extends AbstractController
     public function edit(Request $request, CT $ct, EntityManagerInterface $entityManager): Response
     {
         $now = Carbon::now();
+        $user = $this->getUser();
         $form = $this->createForm(CTType::class, $ct);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            $ct->setFin($now);
+            $ct->setTechnicienControle($user);
+            // dd($ct);
+            $entityManager->persist($ct);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_ct_index', [], Response::HTTP_SEE_OTHER);

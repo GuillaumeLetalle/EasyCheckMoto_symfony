@@ -10,7 +10,7 @@
             <tr>
                 {# <th>Id</th> #}
                 <th>Debut</th>
-                {# <th>Fin</th> #}
+                <th>Fin</th>
                 {# <th>Freinage</th>
                 <th>Direction</th>
                 <th>Visibilite</th>
@@ -29,11 +29,10 @@
         <tbody>
         
         {% for ct in cts %}
-        {% if ct.fin == null %}
             <tr>
                 {# <td>{{ ct.id }}</td> #}
                 <td>{{ ct.debut ? ct.debut|date('d-m-Y H:i:s') : '' }}</td>
-                {# <td>{{ ct.fin ? ct.fin|date('d-m-Y H:i:s') : '' }}</td> #}
+                <td>{{ ct.fin ? ct.fin|date('d-m-Y H:i:s') : '' }}</td>
                 {# <td>{{ ct.freinage ? 'Yes' : 'No' }}</td>
                 <td>{{ ct.direction ? 'Yes' : 'No' }}</td>
                 <td>{{ ct.visibilite ? 'Yes' : 'No' }}</td>
@@ -59,7 +58,6 @@
             <tr>
                 <td colspan="16">no records found</td>
             </tr> #}
-        {% endif %}
         {% endfor %}
         
         </tbody>

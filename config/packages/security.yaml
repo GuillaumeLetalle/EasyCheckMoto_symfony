@@ -45,12 +45,15 @@ security:
             
     role_hierarchy :
         ROLE_CLIENT : ROLE_USER
+        # ROLE_TECHNICIEN : ROLE_USER
         ROLE_ADMIN : ROLE_TECHNICIEN
         ROLE_SUPER_ADMIN : [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
 
     access_control:
         - { path : ^/login, roles : PUBLIC_ACCESS }
         - { path : ^/ct, roles : PUBLIC_ACCESS }
+        - { path: ^/client/new, roles: PUBLIC_ACCESS }
+        - { path : ^/moto/new, roles : ROLE_TECHNICIEN }
         - { path : ^/moto, roles : ROLE_CLIENT }
         - { path: ^/client, roles: ROLE_CLIENT }
         - { path: ^/technicien, roles: ROLE_TECHNICIEN }
@@ -63,57 +66,3 @@ when@test:
                 cost: 4 # Lowest possible value for bcrypt
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
-
- # client_secure_area :
-        #     pattern : ^/clients
-        #     provider : app_client_provider
-        #     form_login :
-        #         login_path : client_login
-        #         check_path : client_login
-        #         default_target_path : client_home
-        #         username_parameter : login[username]
-        #         password_parameter : login[password]
-        #         enable_csrf : true
-        #     logout :
-        #         path : app_client_logout
-        #         # where to redirect after logout
-        #         target : client_login
-        #         invalidate_session : true
-        #         # configuring the maximum login attemps (per minute)
-        #     # login_throttling :
-        #     #     max_attempts : 3
-        #     custom_authenticator : App\Security\AppClientAuthenticator
-        #     entry_point : form_login
-
-        #     remember_me :
-        #         secret : '%kernel.secret%'
-        #         lifetime : 60
-        #         path : /
-        #         always_remember_me : true
-           
-
-
-        # technicien_secure_area :
-        #     pattern : ^/technicien
-        #     provider : app_technicien_provider
-        #     form_login :
-        #         login_path : technicien_login
-        #         check_path : technicien_login
-        #         default_target_path : technicien_home
-        #         username_parameter : login[username]
-        #         password_parameter : login[password]
-        #         enable_csrf : true
-        #     logout :
-        #         path : app_technicien_logout
-        #         target : technicien_login
-        #         invalidate_session : true
-        #     login_throttling :
-        #         max_attempts : 3
-        #     custom_authenticator : App\Security\AppTechnicienAuthenticator
-        #     entry_point : form_login
-
-        #     remember_me :
-        #         secret : '%kernel.secret%'
-        #         lifetime : 60
-        #         path : /
-        #         always_remember_me : true

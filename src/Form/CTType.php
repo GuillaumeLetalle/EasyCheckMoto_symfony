@@ -19,6 +19,12 @@ class CTType extends AbstractType
         $builder
             // ->add('debut')
             // ->add('fin')
+            ->add('vehicule_controle', EntityType::class, [
+                'label' => 'moto',
+                'class' => Moto::class,
+                'choice_label' => 'immatriculation',
+                'required' => true,
+            ])
             ->add('freinage')
             ->add('direction')
             ->add('visibilite')
@@ -29,14 +35,8 @@ class CTType extends AbstractType
             ->add('equipement')
             ->add('pollution')
             ->add('niveau_sonore')
-            // ->add('moto_is_ok')
+            ->add('moto_is_ok')
             ->add('commentaires')
-            // ->add('vehicule_controle', EntityType::class, [
-            //     'label' => 'moto',
-            //     'class' => Moto::class,
-            //     'choice_label' => 'immatriculation',
-            //     'required' => true,
-            // ])
             // ->add('client', EntityType::class, [
             //     'label' => 'client',
             //     'class' => Client::class,

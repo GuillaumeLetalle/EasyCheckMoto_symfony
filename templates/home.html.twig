@@ -1,24 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home Page{% endblock %}
+{# {% block title %}Home Page{% endblock %} #}
 
 {% block body %}
 
     {% if app.user %}
-        Welcome
-    {% endif %}
-
-    {% if is_granted('ROLE_ADMIN') %}
-        Admin
+        Bienvenue
     {% endif %}
 
     {% if is_granted('ROLE_TECHNICIEN') %}
-        Technicien
+        {{ app.user.firstname }}  {{ app.user.name }}
     {% endif %}
 
     {% if is_granted('ROLE_CLIENT') %}
-        Client
+       {{ app.user.firstname }}  {{ app.user.name }}
     {% endif %}
 
+<div class="container-fluid">
+{% block calendar %}
+{{ include('calendar.html.twig') }}
+{% endblock %}
+</div>
 
 {% endblock %}
