@@ -55,7 +55,7 @@ security:
         - { path: ^/client/new, roles: PUBLIC_ACCESS }
         - { path : ^/moto/new, roles : ROLE_TECHNICIEN }
         - { path : ^/moto, roles : ROLE_CLIENT }
-        - { path: ^/client, roles: ROLE_CLIENT }
+        - { path: ^/client, roles: [ROLE_CLIENT, ROLE_ADMIN] }
         - { path: ^/technicien, roles: ROLE_TECHNICIEN }
 
 when@test:

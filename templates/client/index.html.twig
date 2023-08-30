@@ -1,19 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Client index{% endblock %}
 
 {% block body %}
-    <h1>Client index</h1>
+    <h1>Clients</h1>
 
-    <table class="table">
+    <table class="table tableclient ">
         <thead>
+        {# TODO
+        <input type="search" class="" id="datatable-search-input">
+        <label class="form-label" for="datatable-search-input">Search</label> #}
             <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
                 <th>Name</th>
                 <th>Firstname</th>
+                <th>Email</th>
                 <th>Phone</th>
                 <th>actions</th>
             </tr>
@@ -21,16 +20,12 @@
         <tbody>
         {% for client in clients %}
             <tr>
-                <td>{{ client.id }}</td>
-                <td>{{ client.email }}</td>
-                <td>{{ client.roles ? client.roles|json_encode : '' }}</td>
-                <td>{{ client.password }}</td>
                 <td>{{ client.name }}</td>
                 <td>{{ client.firstname }}</td>
+                <td>{{ client.email }}</td>
                 <td>{{ client.phone }}</td>
                 <td>
-                    <a href="{{ path('app_client_show', {'id': client.id}) }}">show</a>
-                    <a href="{{ path('app_client_edit', {'id': client.id}) }}">edit</a>
+                    <a href="{{ path('app_client_show', {'id': client.id}) }}">show</a></br>
                 </td>
             </tr>
         {% else %}
@@ -40,6 +35,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_client_new') }}">Create new</a>
 {% endblock %}

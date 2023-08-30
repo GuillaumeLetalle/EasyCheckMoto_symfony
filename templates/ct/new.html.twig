@@ -5,6 +5,10 @@
 {% block body %}
     <h1>Nouveau Contrôle Tehnique</h1>
 
+    <div class="container">
+        <div id='calendar-holder' ></div>
+    </div>
+
     {{ include('ct/_form.html.twig') }}
 
     {% if is_granted('ROLE_ADMIN') %}
@@ -12,4 +16,38 @@
     {% endif %}
 
     <a href="{{ path('app_ct_indexTechnicien' , {'id': app.user.id})}}">Retour</a>
+{% endblock %}
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js" integrity="sha256-dHUNnePy81fXq4D/wfu7cPsEIP7zl6MvLb84jtZf+UY=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', () => {
+            let calendarEl = document.getElementById('calendar-holder');
+
+            let calendar = new FullCalendar.Calendar(calendarEl, {
+                defaultView: 'timeGridWeek',
+                locale: 'fr',
+                timeZone: 'Europe/Paris',
+                editable: true,
+                eventSources: [
+                    {
+                       url: "{{ path('fc_load_events') }}",
+                       method: "POST",
+                        extraParams: {
+                            filters: JSON.stringify({})
+                        },
+                        failure: () => {
+                            alert("There was an error while fetching FullCalendar!");
+                        },
+                    },
+                ], 
+                headerToolbar: {
+                    start: 'prev,next today',
+                    center: 'title',
+                    end: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+            });
+            calendar.render();
+        });
+    </script>
 {% endblock %}

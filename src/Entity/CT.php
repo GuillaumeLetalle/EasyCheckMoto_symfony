@@ -65,6 +65,9 @@ class CT
     #[ORM\ManyToOne(inversedBy: 'ct')]
     private ?Client $client = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $CTEffectue = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -275,6 +278,18 @@ class CT
     public function setClient(?Client $client): static
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function isCTEffectue(): ?bool
+    {
+        return $this->CTEffectue;
+    }
+
+    public function setCTEffectue(?bool $CTEffectue): static
+    {
+        $this->CTEffectue = $CTEffectue;
 
         return $this;
     }

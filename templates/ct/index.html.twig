@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{# {% block title %}CT index{% endblock %} #}
 
 {% block body %}
     <h1>Contôle Technique :</h1>
@@ -8,57 +7,29 @@
     <table class="table">
         <thead>
             <tr>
-                {# <th>Id</th> #}
                 <th>Debut</th>
-                {# <th>Fin</th> #}
-                {# <th>Freinage</th>
-                <th>Direction</th>
-                <th>Visibilite</th>
-                <th>Eclairage_signalisation</th>
-                <th>Pneumatique</th>
-                <th>Carrosserie</th>
-                <th>Mecanique</th>
-                <th>Equipement</th>
-                <th>Pollution</th>
-                <th>Niveau_sonore</th>
-                <th>Moto_is_ok</th>
-                <th>Commentaires</th> #}
+                <th>Fin</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         
         {% for ct in cts %}
-        {% if ct.fin == null %}
+        {% if ct.cteffectue == 1 %}
             <tr>
-                {# <td>{{ ct.id }}</td> #}
                 <td>{{ ct.debut ? ct.debut|date('d-m-Y H:i:s') : '' }}</td>
-                {# <td>{{ ct.fin ? ct.fin|date('d-m-Y H:i:s') : '' }}</td> #}
-                {# <td>{{ ct.freinage ? 'Yes' : 'No' }}</td>
-                <td>{{ ct.direction ? 'Yes' : 'No' }}</td>
-                <td>{{ ct.visibilite ? 'Yes' : 'No' }}</td>
-                <td>{{ ct.eclairageSignalisation ? 'Yes' : 'No' }}</td>
-                <td>{{ ct.pneumatique ? 'Yes' : 'No' }}</td>
-                <td>{{ ct.carrosserie ? 'Yes' : 'No' }}</td>
-                <td>{{ ct.mecanique ? 'Yes' : 'No' }}</td>
-                <td>{{ ct.pollution ? 'Yes' : 'No' }}</td>
-                <td>{{ ct.niveauSonore ? 'Yes' : 'No' }}</td>
-                <td>{{ ct.motoIsOk ? 'Yes' : 'No' }}</td>
-                <td>{{ ct.commentaires }}</td> #}
+                <td>{{ ct.fin ? ct.fin|date('d-m-Y H:i:s') : '' }}</td>
                 <td>
-                    {% if ct.fin != null %}
-                    <a href="{{ path('app_ct_show', {'id': ct.id}) }}">Voir</a>
-                    {% endif %}
                     
-                    {% if ct.fin == null %}
-                    <a href="{{ path('app_ct_edit', {'id': ct.id}) }}">Effectuer</a>
-                    {% endif %}
+                    <a href="{{ path('app_ct_show', {'id': ct.id}) }}">Voir</a>
+                  
+                    
+                    
+                    {# <a href="{{ path('app_ct_edit', {'id': ct.id}) }}">Effectuer</a> #}
+                   
                 </td>
             </tr>
-        {# {% else %}
-            <tr>
-                <td colspan="16">no records found</td>
-            </tr> #}
+        
         {% endif %}
         {% endfor %}
         

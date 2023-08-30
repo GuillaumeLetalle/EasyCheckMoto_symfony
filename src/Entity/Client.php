@@ -44,7 +44,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Moto::class, orphanRemoval: true)]
     private Collection $motos;
 
-    #[ORM\OneToMany(mappedBy: 'client', targetEntity: ct::class)]
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: CT::class)]
     private Collection $ct;
 
     

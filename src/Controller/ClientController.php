@@ -7,6 +7,8 @@ use App\Entity\Client;
 use App\Form\ClientType;
 use App\Repository\MotoRepository;
 use App\Repository\ClientRepository;
+use App\Repository\CTRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,8 +30,9 @@ class ClientController extends AbstractController
     }
 
     #[Route('/new', name: 'app_client_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function new( Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
+        
         $client = new Client();
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
@@ -51,7 +54,7 @@ class ClientController extends AbstractController
 
         return $this->render('client/new.html.twig', [
             'client' => $client,
-            'form' => $form,
+            'form' => $form
         ]);
     }
 

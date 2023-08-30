@@ -70,10 +70,11 @@
         </tbody>
     </table>
     {# <a href="">Imprimer</a></br>  TODO#}
+    {% if is_granted('ROLE_TECHNICIEN') %}
     <a href="{{ path('app_ct_indexTechnicien' , {'id': app.user.id})}}">Retour à la liste</a>
-    
+    {% endif %}
 
-    {% if ct.fin == null %}
+    {% if ct.cteffectue == 1 %}
     <a href="{{ path('app_ct_edit', {'id': ct.id}) }}">edit</a>
     {% endif %}
 

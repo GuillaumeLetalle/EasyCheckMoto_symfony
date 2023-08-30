@@ -2,12 +2,13 @@
 
 namespace App\EventSubscriber;
 
+use DateTime;
 use App\Repository\CTRepository;
-use CalendarBundle\CalendarEvents;
 use CalendarBundle\Entity\Event;
+use CalendarBundle\CalendarEvents;
 use CalendarBundle\Event\CalendarEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CalendarSubscriber implements EventSubscriberInterface
 {
@@ -32,20 +33,21 @@ class CalendarSubscriber implements EventSubscriberInterface
 
         // Modify the query to fit to your entity and needs
         // Change booking.beginAt by your start date property
-        $cts = $this->ctRepository
+        
+            $cts = $this->ctRepository
             ->createQueryBuilder('ct')
             ->where('ct.debut BETWEEN :start and :end OR ct.fin BETWEEN :start and :end')
-            ->setParameter('start', $start->format('d-m-Y H:i:s'))
-            ->setParameter('end', $end->format('d-m-Y H:i:s'))
+            ->setParameter('start', $start)
+            ->setParameter('end',$end)
             ->getQuery()
-            ->getResult();
+            ->getResult();  
 
         foreach ($cts as $ct) {
             // this create the events with your data (here booking data) to fill calendar
             $ctEvent = new Event(
-                $ct->getTitle(),
-                $ct->getBeginAt(),
-                $ct->getEndAt() // If the end date is null or not defined, a all day event is created.
+                $ct->getClient()->getName(),
+                $ct->getDebut(),
+                $ct->getFin() // If the end date is null or not defined, a all day event is created.
             );
 
             /*
@@ -59,12 +61,12 @@ class CalendarSubscriber implements EventSubscriberInterface
                 'backgroundColor' => 'red',
                 'borderColor' => 'red',
             ]);
-            $ctEvent->addOption(
-                'url',
-                $this->router->generate('app_booking_show', [
-                    'id' => $ct->getId(),
-                ])
-            );
+            // $ctEvent->addOption(
+            //     'url',
+            //     $this->router->generate('app_ct_show', [
+            //         'id' => $ct->getId(),
+            //     ])
+            // );
 
             // finally, add the event to the CalendarEvent to fill the calendar
             $calendar->addEvent($ctEvent);

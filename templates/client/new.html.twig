@@ -3,15 +3,18 @@
 {# {% block title %}New Client{% endblock %} #}
 
 {% block body %}
-    <h1>Inscription</h1>
-
-    {{ include('client/_form.html.twig') }}
-
-{% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('app_client_index') }}">Liste Utilisateurs</a>
-    {% endif %}
-
-    <a href="{{ path('app_home') }}">Retour</a>
-
+<h1>Inscription</h1>
+<div class="bg-login-image">
     
+<div class="formclient ">
+{{ include('client/_form.html.twig') }}
+
+<div class="btnformclient ">
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('app_client_index') }}">Liste Utilisateurs</a></br>
+    {% endif %}
+    <a href="{{ path('app_home') }}">Retour</a>
+</div>
+</div>
+</div>
 {% endblock %}

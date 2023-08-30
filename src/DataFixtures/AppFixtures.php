@@ -248,6 +248,7 @@ class AppFixtures extends Fixture
             $controle->setPollution(mt_rand(0, 1));
             $controle->setNiveauSonore(mt_rand(0, 1));
             $controle->setMotoIsOk('null');
+            $controle->setCTEffectue(mt_rand(0, 1));
             $manager->persist($controle);
         }
         $manager->flush();

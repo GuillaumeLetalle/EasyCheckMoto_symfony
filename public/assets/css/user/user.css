@@ -18,7 +18,7 @@ body {
     background-size: cover;
 }
 
-.card-boby {
+.card-body {
     padding: 1.25rem 0 !important;
 }
 
@@ -27,6 +27,7 @@ body {
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
+    margin-top: 3rem;
 }
 
 .form-group {
@@ -39,7 +40,7 @@ form.user .form-control-user {
     padding: 1.5rem 1rem;
 }
 
-.modal-header .close {
+/* .modal-header .close {
     padding: 1rem;
     margin: -1rem -1rem -1rem auto;
     background-color: transparent;
@@ -52,7 +53,7 @@ form.user .form-control-user {
     color: #000;
     text-shadow: 0 1px 0 #fff;
     opacity: .5;
-}
+} */
 
 label.required:after {
     content: "* ";
@@ -83,4 +84,26 @@ label.required:after {
 /********** colors *********/
 .text-red {
     color: #ff0000;
+}
+
+.btn {
+    color: #171c4b;
+}
+
+.formclient {
+    width: 25rem;
+    height: 25rem;
+    margin-left: 5rem;
+}
+
+.btnformclient {
+    padding-top: 0.3rem;
+    padding-left: 0.7rem;
+}
+
+.tableclient{
+    margin: auto;
+    padding-bottom: 5rem;
+    width: 55rem;
+    max-height: 55rem;
 }
