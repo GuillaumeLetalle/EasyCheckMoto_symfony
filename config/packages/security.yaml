@@ -51,12 +51,12 @@ security:
 
     access_control:
         - { path : ^/login, roles : PUBLIC_ACCESS }
-        - { path : ^/ct, roles : PUBLIC_ACCESS }
         - { path: ^/client/new, roles: PUBLIC_ACCESS }
-        - { path : ^/moto/new, roles : ROLE_TECHNICIEN }
-        - { path : ^/moto, roles : ROLE_CLIENT }
-        - { path: ^/client, roles: [ROLE_CLIENT, ROLE_ADMIN] }
         - { path: ^/technicien, roles: ROLE_TECHNICIEN }
+        - { path : ^/ct/new, roles : [ROLE_CLIENT, ROLE_TECHNICIEN] }
+        - { path : ^/moto/new, roles : [ROLE_CLIENT, ROLE_TECHNICIEN] }
+        - { path : ^/moto, roles : [ROLE_CLIENT, ROLE_ADMIN] }
+        - { path: ^/client, roles: [ROLE_CLIENT, ROLE_ADMIN] }
 
 when@test:
     security:

@@ -73,14 +73,14 @@ class AppFixtures extends Fixture
     ];
 
     private $cylindreesMoto = [
-        '125cc',
-        '250cc',
-        '400cc',
-        '600cc',
-        '750cc',
-        '900cc',
-        '1000cc',
-        '1200cc',
+        '125',
+        '250',
+        '400',
+        '600',
+        '750',
+        '900',
+        '1000',
+        '1200',
     ];
 
     private $plaquesImmatriculation = [
@@ -228,7 +228,7 @@ class AppFixtures extends Fixture
 
         for ($i = 1; $i <= 15; $i++) {
             $controle = new CT;
-            $dateDebut = $this->faker->dateTimeBetween('-3 month', 'now');
+            $dateDebut = $this->faker->dateTimeBetween( 'now','+3 month');
             $decalageHeures = $this->faker->numberBetween(1, 1);
             $dateFin = clone $dateDebut;
             $dateFin->modify("+$decalageHeures hours");
@@ -274,12 +274,13 @@ class AppFixtures extends Fixture
         $db->beginTransaction();
 
         $sql = '
+        USE easycheckmoto;
         SET FOREIGN_KEY_CHECKS = 0;
-        TRUNCATE admin;
-        TRUNCATE technicien;
-        TRUNCATE client;
-        TRUNCATE moto;
         TRUNCATE ct;
+        TRUNCATE moto;
+        TRUNCATE client;
+        TRUNCATE technicien;
+        TRUNCATE admin;
         SET FOREIGN_KEY_CHECKS=1;';
 
         $db->prepare($sql);

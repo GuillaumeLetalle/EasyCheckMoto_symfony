@@ -3,7 +3,8 @@
 {# {% block title %}Home Page{% endblock %} #}
 
 {% block body %}
-<h3>
+
+<h1>
     {% if app.user %}
         Bonjour,
     {% endif %}
@@ -15,13 +16,25 @@
     {% if is_granted('ROLE_CLIENT') %}
        {{ app.user.firstname }}  {{ app.user.name }}
     {% endif %}
-</h3>
-<div class="col-6 m-auto">
-<div class="card card-secondary">
-<div class="card-body p-12">
-<div id='calendar' ></div>
-</div>
-</div>
+</h1>
+
+{% if not app.user  %}
+
+<div class="container p-home">
+    <div class="d-flex flex-row">
+        <div class="tarif ">
+        <h3> Tarif: </h3></br>
+        <h4> - Contrôle technique: 59,90€ </h4></br>
+        <h4> - Contre visite: 19,90€ </h4>
+        </div>
+        <div class="p-2 calendar">
+        <h3> Disponibilités: </h3></br>
+        <div id='calendar'></div>
+        </div>
+    </div>
+
+{% endif %}
+
 </div>
 
 {% block javascripts %}

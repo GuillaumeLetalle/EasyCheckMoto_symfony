@@ -20,10 +20,11 @@ body {
 
 .card-body {
     padding: 1.25rem 0 !important;
+    
 }
 
 .bg-login-image {
-    background: url(/assets/img/logo.png);
+    background: url(/assets/img/logo.webp);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -101,9 +102,38 @@ label.required:after {
     padding-left: 0.7rem;
 }
 
-.tableclient{
+.tableclient {
     margin: auto;
     padding-bottom: 5rem;
     width: 55rem;
     max-height: 55rem;
+}
+
+.logo-sidebar {
+    margin-top: 4rem;
+}
+
+.sidebar-divider{
+    padding-top: 6rem;
+}
+
+.tarif{
+    padding-top: 8rem;
+    margin-right: 5rem;
+    width: 26rem;
+}
+
+.calendar{
+    width: 55rem;
+}
+.accordionSidebar{
+    width: 11rem;
+}
+
+.p-home{
+    margin-top: 12vh;
+}
+
+.spansidebar{
+    font-size: 1.3em !important;
 }
