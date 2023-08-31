@@ -47,12 +47,12 @@ class CTController extends AbstractController
     }
 
 
-    // Création d'un nouveau CT
-    #[Route('/new', name: 'app_ct_new', methods: ['GET', 'POST'])]
+    // Création d'un nouveau CT par un technicien
+    #[Route('/new/ct/tech', name: 'app_ct_tech_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $ct = new CT();
-        $form = $this->createForm(CreateCTType::class, $ct);
+        $form = $this->createForm(CreateCTTechnicienType::class, $ct);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

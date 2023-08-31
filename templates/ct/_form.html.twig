@@ -2,5 +2,8 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
+    {% if not app.user  %}
+    <button class="btn" href="{{ path('app_login') }}">{{ button_label|default('Save') }}</button>
+ {% endif %} 
 {{ form_end(form) }}
 </div>

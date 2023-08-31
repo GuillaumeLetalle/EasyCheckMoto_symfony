@@ -14,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 // use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
-class CreateCTType extends AbstractType
+class CreateCTTechnicienType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

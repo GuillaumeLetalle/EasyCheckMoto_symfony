@@ -12,6 +12,9 @@
 {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('app_client_index') }}">Liste Utilisateurs</a></br>
     {% endif %}
+
+ {% if not app.user  %}
+ {% endif %} 
     <a href="{{ path('app_home') }}">Retour</a>
 </div>
 </div>
