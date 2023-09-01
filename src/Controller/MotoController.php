@@ -32,15 +32,18 @@ class MotoController extends AbstractController
     #[Route('/new', name: 'app_moto_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        $userId = $user->getId();
         $moto = new Moto();
         $form = $this->createForm(MotoType::class, $moto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $moto->setClient($user);
             $entityManager->persist($moto);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_moto_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_moto_index', ['id' => $userId], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('moto/new.html.twig', [
@@ -60,13 +63,16 @@ class MotoController extends AbstractController
     #[Route('/{id}/edit', name: 'app_moto_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Moto $moto, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        $userId = $user->getId();
+        
         $form = $this->createForm(MotoType::class, $moto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_moto_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_moto_index', ['id' => $userId], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('moto/edit.html.twig', [
@@ -78,11 +84,14 @@ class MotoController extends AbstractController
     #[Route('/{id}/delete', name: 'app_moto_delete', methods: ['POST'])]
     public function delete(Request $request, Moto $moto, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        $userId = $user->getId();
+        
         if ($this->isCsrfTokenValid('delete' . $moto->getId(), $request->request->get('_token'))) {
             $entityManager->remove($moto);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_moto_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_moto_index', ['id' => $userId], Response::HTTP_SEE_OTHER);
     }
 }

@@ -1,9 +1,4 @@
-<div class="w-50 p-3 h-25 d-inline-block" style="width: 120px;">
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-    {% if not app.user  %}
-    <button class="btn" href="{{ path('app_login') }}">{{ button_label|default('Save') }}</button>
- {% endif %} 
+   {{ form_widget(form) }}
+        <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
-</div>

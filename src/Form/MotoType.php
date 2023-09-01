@@ -20,12 +20,12 @@ class MotoType extends AbstractType
             ->add('cylindree')
             ->add('annee')
             ->add('immatriculation')
-            ->add('client', EntityType::class, [
-                'label' => 'client',
-                'class' => Client::class,
-                'choice_label' => 'name',
-                'required' => true,
-            ])
+            // ->add('client', EntityType::class, [
+            //     'label' => 'client',
+            //     'class' => Client::class,
+            //     'choice_label' => 'name',
+            //     'required' => true,
+            // ])
         ;
     }
 

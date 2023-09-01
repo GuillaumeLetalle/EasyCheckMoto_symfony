@@ -6,26 +6,47 @@
     <h1>Nouveau Contrôle Tehnique</h1>
 
     <div class="container">
-        <div id='calendar-holder' ></div>
+        <div class="row">
+            <div class="col" >
+            {{ include('ct/_form.html.twig') }}
+             </div>
+        <div id='calendar' class="col" ></div>
+        </div>
     </div>
 
-    {{ include('ct/_form.html.twig') }}
 
     {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('app_ct_index') }}">Contrôles Techniques</a>
     {% endif %}
 
+    {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('app_ct_indexTechnicien' , {'id': app.user.id})}}">Retour</a>
+    {% endif %}
+    
 {% endblock %}
 {% block javascripts %}
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js" integrity="sha256-dHUNnePy81fXq4D/wfu7cPsEIP7zl6MvLb84jtZf+UY=" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', () => {
-            let calendarEl = document.getElementById('calendar-holder');
+            let calendarEl = document.getElementById('calendar');
 
-            let calendar = new FullCalendar.Calendar(calendarEl, {
+            const calendar = new FullCalendar.Calendar(calendarEl, {
                 defaultView: 'timeGridWeek',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'timeGridWeek,timeGridDay,dayGridMonth'
+                },
+                allDaySlot: false, // Enlève la ligne "All Day"
+                slotMinTime: '09:00:00', // Heure de début
+                slotMaxTime: '19:00:00', // Heure de fin
+                nowIndicator: true, // Indicateur pour l'heure actuelle
+                businessHours: { // Paramètres des heures de travail
+                    startTime: '09:00',
+                    endTime: '12:00',
+                   daysOfWeek: [1, 2, 3, 4, 5] // Du lundi au vendredi
+                },
                 locale: 'fr',
                 timeZone: 'Europe/Paris',
                 editable: true,
@@ -41,11 +62,6 @@
                         },
                     },
                 ], 
-                headerToolbar: {
-                    start: 'prev,next today',
-                    center: 'title',
-                    end: 'dayGridMonth,timeGridWeek,timeGridDay'
-                },
             });
             calendar.render();
         });

@@ -29,7 +29,7 @@ class CalendarSubscriber implements EventSubscriberInterface
     {
         $start = $calendar->getStart();
         $end = $calendar->getEnd();
-        $filters = $calendar->getFilters();
+        // $filters = $calendar->getFilters();
 
         // Modify the query to fit to your entity and needs
         // Change booking.beginAt by your start date property
