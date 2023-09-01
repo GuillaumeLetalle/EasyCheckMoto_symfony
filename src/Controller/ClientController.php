@@ -47,6 +47,7 @@ class ClientController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            
         }
 
         return $this->render('client/new.html.twig', [
