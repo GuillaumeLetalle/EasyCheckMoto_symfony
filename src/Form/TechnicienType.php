@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Technicien;
+use App\Validator\PasswordConstraints;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,6 +37,9 @@ class TechnicienType extends AbstractType
                     'autocomplete' => 'new-password'
                 ]],
                 'required' => is_null($builder->getData()->getId()),
+                'constraints' => [
+                    new PasswordConstraints(),
+                ],
                 'first_options'  => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Confirmation du mot de passe'],
             ])

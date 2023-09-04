@@ -27,7 +27,7 @@ class CTController extends AbstractController
     public function index(CTRepository $cTRepository, $id): Response
     {
         $user = $this->getUser();
-        $userId = $user->getId();
+        //$userId = $user->getId();
         
             return $this->render('ct/index.html.twig', [
                 'cts' => $cTRepository->findby(['client' => $id]),
@@ -59,34 +59,37 @@ class CTController extends AbstractController
     {
         $user = $this->getUser();
         $ct = new CT();
-        $form = $this->createForm(CreateCTType::class, $ct);
-        $form->handleRequest($request);
-if ($user instanceof Client){
-    if ($form->isSubmitted() && $form->isValid()) {
-        $endHour = $ct->getDebut();
-        $endHour->modify('+1 hour');
-        $ct->setFin($endHour);
-        $ct->setClient($user);
-        $entityManager->persist($ct);
-        $entityManager->flush();
 
-        return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
-    }
-}
+        if ($user instanceof Client){
+            $form = $this->createForm(CreateCTType::class, $ct);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $endHour = $ct->getDebut();
+                $endHour->modify('+1 hour');
+                $ct->setFin($endHour);
+                $ct->setClient($user);
+                $ct->setTitreRdv('RDV');
+                $entityManager->persist($ct);
+                $entityManager->flush();
+                return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);     
+                }
+            }
 
-if ($user instanceof Technicien){
-    if ($form->isSubmitted() && $form->isValid()) {
-        $endHour = $ct->getDebut();
-        $endHour->modify('+1 hour');
-        $ct->setFin($endHour);
-        $ct->setTechnicienControle($user);
-        $entityManager->persist($ct);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
-    }
-}
-        
+            if ($user instanceof Technicien){
+                $form = $this->createForm(CreateCTTechnicienType::class, $ct);
+                $form->handleRequest($request);
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $endHour = $ct->getDebut();
+                    $endHour->modify('+1 hour');
+                    $ct->setFin($endHour);
+                    $ct->setTechnicienControle($user);
+                    $ct->setTitreRdv('RDV');
+                    $entityManager->persist($ct);
+                    $entityManager->flush();
+            
+                    return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+                }
+            }
 
         return $this->render('ct/new.html.twig', [
             'ct' => $ct,

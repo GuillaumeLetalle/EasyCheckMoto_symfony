@@ -8,7 +8,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                
                 <th>Marque</th>
                 <th>Modele</th>
                 <th>Cylindree</th>
@@ -20,24 +20,28 @@
         <tbody>
         {% for moto in motos %}
             <tr>
-                <td>{{ moto.id }}</td>
+                
                 <td>{{ moto.marque }}</td>
                 <td>{{ moto.modele }}</td>
                 <td>{{ moto.cylindree }}</td>
                 <td>{{ moto.annee }}</td>
                 <td>{{ moto.immatriculation }}</td>
                 <td>
-                    <a href="{{ path('app_moto_show', {'id': moto.id}) }}">show</a>
-                    <a href="{{ path('app_moto_edit', {'id': moto.id}) }}">edit</a>
+                    {# <a href="{{ path('app_moto_show', {'id': moto.id}) }}">Voir</a></br> #}
+                    <a href="{{ path('app_moto_edit', {'id': moto.id}) }}">Modifier</a>
+                    <form method="post" action="{{ path('app_moto_delete', {'id': moto.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ moto.id) }}">
+                        <button class="btn">Delete</button>
+                    </form>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Votre garage est vide</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_moto_new') }}">Create new</a>
+    <a href="{{ path('app_moto_new') }}">Ajouter une moto</a>
 {% endblock %}

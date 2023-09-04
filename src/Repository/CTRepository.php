@@ -21,12 +21,30 @@ class CTRepository extends ServiceEntityRepository
         parent::__construct($registry, CT::class);
     }
 
-    public function setCtToNull($idUser)
+    public function setCtToTechnicienToNull($idTechnicien)
     {
         $conn = $this->getEntityManager()->getConnection();
         $sql = '
             UPDATE ct c set technicien_controle_id = null 
-            WHERE c.technicien_controle_id = ' . $idUser;
+            WHERE c.technicien_controle_id = ' . $idTechnicien;
+        $conn->executeQuery($sql);
+    }
+
+    public function setCtToVehiculeToNull($idMoto)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+            UPDATE ct c set vehicule_controle_id = null 
+            WHERE c.vehicule_controle_id = ' . $idMoto;
+        $conn->executeQuery($sql);
+    }
+
+    public function setCtToClientToNull($idClient)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+            UPDATE ct c set client_id = null 
+            WHERE c.client_id = ' . $idClient;
         $conn->executeQuery($sql);
     }
 

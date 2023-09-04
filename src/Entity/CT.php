@@ -20,6 +20,9 @@ class CT
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $fin = null;
 
+    #[ORM\Column(length: 5)]
+    private ?string $Titre_rdv = null;
+
     #[ORM\Column(nullable: true)]
     private ?bool $freinage = null;
 
@@ -67,6 +70,7 @@ class CT
 
     #[ORM\Column(nullable: true)]
     private ?bool $CTEffectue = null;
+
 
     public function getId(): ?int
     {
@@ -290,6 +294,18 @@ class CT
     public function setCTEffectue(?bool $CTEffectue): static
     {
         $this->CTEffectue = $CTEffectue;
+
+        return $this;
+    }
+
+    public function getTitreRdv(): ?string
+    {
+        return $this->Titre_rdv;
+    }
+
+    public function setTitreRdv(string $Titre_rdv): static
+    {
+        $this->Titre_rdv = $Titre_rdv;
 
         return $this;
     }

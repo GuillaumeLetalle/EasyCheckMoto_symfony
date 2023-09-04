@@ -15,7 +15,7 @@
         <tbody>
         
         {% for ct in cts %}
-        {% if ct.cteffectue == 1 %}
+        
             <tr>
                 <td>{{ ct.debut ? ct.debut|date('d-m-Y H:i:s') : '' }}</td>
                 <td>{{ ct.fin ? ct.fin|date('d-m-Y H:i:s') : '' }}</td>
@@ -30,7 +30,7 @@
                 </td>
             </tr>
         
-        {% endif %}
+       
         {% endfor %}
         
         </tbody>

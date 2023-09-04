@@ -4,38 +4,13 @@
 
 {% block body %}
 
-<h1>
-    {% if app.user %}
-        Bonjour,
-    {% endif %}
 
-    {% if is_granted('ROLE_TECHNICIEN') %}
-        {{ app.user.firstname }}  {{ app.user.name }}
-    {% endif %}
-
-    {% if is_granted('ROLE_CLIENT') %}
-       {{ app.user.firstname }}  {{ app.user.name }}
-    {% endif %}
-</h1>
-
-{% if not app.user  %}
-
-<div class="container p-home">
-    <div class="d-flex flex-row">
-        <div class="tarif ">
-        <h3> Tarif: </h3></br>
-        <h4> - Contrôle technique: 59,90€ </h4></br>
-        <h4> - Contre visite: 19,90€ </h4>
-        </div>
-        <div class="p-2 calendar">
-        <h3> Disponibilités: </h3></br>
-        <div id='calendar'></div>
-        </div>
+<div class="container"> 
+    <div class="p-2 calendar">
+    <div id='calendar'></div>
     </div>
-
-{% endif %}
-
 </div>
+
 
 {% block javascripts %}
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js" integrity="sha256-dHUNnePy81fXq4D/wfu7cPsEIP7zl6MvLb84jtZf+UY=" crossorigin="anonymous"></script>

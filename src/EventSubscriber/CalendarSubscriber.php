@@ -45,7 +45,7 @@ class CalendarSubscriber implements EventSubscriberInterface
         foreach ($cts as $ct) {
             // this create the events with your data (here booking data) to fill calendar
             $ctEvent = new Event(
-                $ct->getClient()->getName(),
+                $ct->getTitreRdv(),
                 $ct->getDebut(),
                 $ct->getFin() // If the end date is null or not defined, a all day event is created.
             );
@@ -57,7 +57,8 @@ class CalendarSubscriber implements EventSubscriberInterface
              * and: https://github.com/fullcalendar/fullcalendar/blob/master/src/core/options.ts
              */
 
-            $ctEvent->setOptions([
+            $ctEvent->setOptions(
+                [
                 'backgroundColor' => 'red',
                 'borderColor' => 'red',
             ]);

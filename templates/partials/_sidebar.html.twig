@@ -1,24 +1,25 @@
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-    <a class="sidebar-brand d-flex align-items-center justify-content-center">
-        <div class="logo-sidebar">
-        <img src="/assets/img/logo.webp" class="w-100"></div>
-    </a>
+    {# <a class="sidebar-brand d-flex align-items-center justify-content-center"> #}
+        <div class="logo-sidebar x-auto ">
+        <img src="/assets/img/logo.webp" class="w-75 logo">
+        </div>
+    {# </a> #}
 
-    <hr class="sidebar-divider my-0">
+    {# <hr class="sidebar-divider my-0"> #}
 
     {% if not app.user  %}
 
     <li class="nav-item">
-    <a class="nav-link" href="{{ path('app_login') }}">
+    <a class="nav-link itemSidebar" href="{{ path('app_login') }}">
             <i class="fa-solid fa-fw "></i>
             <span class="spansidebar">Connexion</span>
         </a> 
     </li>
 
     <li class="nav-item">
-    <a class="nav-link" href="{{ path('app_client_new') }}">
+    <a class="nav-link itemSidebar" href="{{ path('app_client_new') }}">
             <i class="fa-solid fa-fw "></i>
             <span class="spansidebar">S'inscrire</span>
         </a> 
@@ -30,60 +31,62 @@
         
         {% if app.user %}
 
-        <a class="nav-link" href="{{ path('app_home') }}">
+        <a class="nav-link itemSidebar1" href="{{ path('app_home') }}">
             <i class="fa-solid fa-fw "></i>
             <span class="spansidebar">Accueil</span>
         </a>
         
-        <a class="nav-link" href="{{ path('app_ct_new') }}">
-        <i class="fa-solid fa-fw "></i>
-        <span class="spansidebar">Prendre RDV</span></a>
 
         {% if is_granted('ROLE_TECHNICIEN') %}
 
-        <a class="nav-link" href="{{ path('app_client_new') }}">
+        <a class="nav-link itemSidebar" href="{{ path('app_client_new') }}">
         <i class="fa-solid fa-fw "></i>
         <span class="spansidebar">Nouveau Client</span></a>
 
-        <a class="nav-link" href="{{ path('app_client_index') }}">
+        <a class="nav-link itemSidebar" href="{{ path('app_client_index') }}">
         <i class="fa-solid fa-fw "></i>
         <span class="spansidebar">Liste des clients</span></a>
 
-        <a class="nav-link" href="{{ path('app_ct_index') }}">
+        <a class="nav-link itemSidebar" href="{{ path('app_ct_index') }}">
         <i class="fa-solid fa-fw "></i>
         <span class="spansidebar">CT à faire</span></a>
 
-        <a class="nav-link" href="{{ path('app_ct_indexTechnicien' , {'id': app.user.id}) }}">
+        <a class="nav-link itemSidebar" href="{{ path('app_ct_indexTechnicien' , {'id': app.user.id}) }}">
         <i class="fa-solid fa-fw "></i>
         <span class="spansidebar">Mes CT effectués</span></a>
 
-        <a class="nav-link" href="{{ path('app_technicien_edit', {'id': app.user.id}) }}">
+        <a class="nav-link itemSidebar" href="{{ path('app_technicien_edit', {'id': app.user.id}) }}">
         <i class="fa-solid fa-fw "></i>
         <span class="spansidebar"> Mon Profil</span></a>
         {% endif %}
 
         {% if is_granted('ROLE_ADMIN') %}
-        <a class="nav-link" href="{{ path('app_ct_indexAdmin') }}">
+        <a class="nav-link itemSidebar" href="{{ path('app_ct_indexAdmin') }}">
         <i class="fa-solid fa-fw "></i>
         <span class="spansidebar">Tout les CTs</span></a>
 
-        <a class="nav-link" href="{{ path('app_technicien_index') }}">
+        <a class="nav-link itemSidebar" href="{{ path('app_technicien_index') }}">
         <i class="fa-solid fa-fw "></i>
         <span class="spansidebar">Liste des Techniciens</span></a>
         {% endif %}
 
         {% if is_granted('ROLE_CLIENT')  %}
-        <a class="nav-link" href="{{ path('app_client_edit', {'id': app.user.id}) }}">
+
+        <a class="nav-link itemSidebar" href="{{ path('app_moto_index' , {'id': app.user.id}) }}">
+        <i class="fa-solid fa-fw "></i>
+        <span class="spansidebar">Mon Garage</span></a>
+
+        <a class="nav-link itemSidebar" href="{{ path('app_ct_new') }}">
+        <i class="fa-solid fa-fw "></i>
+        <span class="spansidebar">Prendre RDV</span></a>
+
+        <a class="nav-link itemSidebar" href="{{ path('app_client_edit', {'id': app.user.id}) }}">
         <i class="fa-solid fa-fw "></i>
         <span class="spansidebar">Mon Profil</span></a>
 
-        <a class="nav-link" href="{{ path('app_moto_index' , {'id': app.user.id}) }}">
+        <a class="nav-link itemSidebar" href="{{ path('app_ct_index' , {'id': app.user.id}) }}">
         <i class="fa-solid fa-fw "></i>
-        <span class="spansidebar">Mes Motos</span></a>
-
-        <a class="nav-link" href="{{ path('app_ct_index' , {'id': app.user.id}) }}">
-        <i class="fa-solid fa-fw "></i>
-        <span class="spansidebar">Mes Controles techniques</span></a>
+        <span class="spansidebar">Mes CTs</span></a>
         {% endif %}
 
     </li>

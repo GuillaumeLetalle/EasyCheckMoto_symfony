@@ -152,7 +152,7 @@ class AppFixtures extends Fixture
         $admin->setUsername('g.letalle');
         $hashedPassword = $this->passwordHasher->hashPassword(
             $admin,
-            'TrucdeOuf'
+            'Truc2Ouf!'
         );
         $admin->setPassword($hashedPassword);
         $admin->setRoles(['ROLE_ADMIN', 'ROLE_TECHNICIEN']);
@@ -170,7 +170,7 @@ class AppFixtures extends Fixture
             $team->setUsername('tech' . $i);
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $team,
-                'TrucdeOuf'
+                'Truc2Ouf!'
             );
             $team->setPassword($hashedPassword);
             $team->setRoles(['ROLE_TECHNICIEN']);
@@ -186,7 +186,6 @@ class AppFixtures extends Fixture
         for ($i = 1; $i <= 20; $i++) {
             $user = new Client;
             $user->setEmail('user' . $i . '@gmail.fr');
-            $user->setUsername('user' . $i);
             $user->setFirstname($this->faker->firstName);
             $user->setname($this->faker->lastName);
             $user->setRoles(['ROLE_CLIENT']);
@@ -197,6 +196,8 @@ class AppFixtures extends Fixture
             $user->setPassword($hashedPassword);
             $numero = $this->faker->randomElement($this->numerosTelephone);
             $user->setPhone($numero);
+            $mail = $user->getEmail();
+            $user->setUsername($mail);
             $manager->persist($user);
         }
         $manager->flush();
@@ -226,7 +227,7 @@ class AppFixtures extends Fixture
     protected function ctFixtures($manager)
     {
 
-        for ($i = 1; $i <= 15; $i++) {
+        for ($i = 1; $i <= 35; $i++) {
             $controle = new CT;
             $dateDebut = $this->faker->dateTimeBetween( 'now','+3 month');
             $decalageHeures = $this->faker->numberBetween(1, 1);
@@ -249,6 +250,7 @@ class AppFixtures extends Fixture
             $controle->setNiveauSonore(mt_rand(0, 1));
             $controle->setMotoIsOk('null');
             $controle->setCTEffectue(mt_rand(0, 1));
+            $controle->setTitreRdv('RDV');
             $manager->persist($controle);
         }
         $manager->flush();

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Moto;
 use App\Form\MotoType;
+use App\Repository\CTRepository;
 use App\Repository\MotoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -82,12 +83,13 @@ class MotoController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'app_moto_delete', methods: ['POST'])]
-    public function delete(Request $request, Moto $moto, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Moto $moto, EntityManagerInterface $entityManager, CTRepository $cTRepository, $id): Response
     {
         $user = $this->getUser();
         $userId = $user->getId();
         
         if ($this->isCsrfTokenValid('delete' . $moto->getId(), $request->request->get('_token'))) {
+            $cTRepository->setCtToVehiculeToNull($id);
             $entityManager->remove($moto);
             $entityManager->flush();
         }

@@ -30,9 +30,9 @@ class ClientController extends AbstractController
     }
 
     #[Route('/new', name: 'app_client_new', methods: ['GET', 'POST'])]
-    public function new( Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
-        
+
         $client = new Client();
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
@@ -73,7 +73,7 @@ class ClientController extends AbstractController
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $passwordHasher,
     ): Response {
-        
+
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
@@ -99,13 +99,20 @@ class ClientController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_client_delete', methods: ['POST'])]
-    public function delete(Request $request, Client $client, EntityManagerInterface $entityManager, MotoRepository $motoRepository, $id): Response
+    public function delete(Request $request, Client $client, EntityManagerInterface $entityManager, MotoRepository $motoRepository, CTRepository $cTRepository, $id): Response
     {
+        $motos = $client->getMotos();
+
         if ($this->isCsrfTokenValid('delete' . $client->getId(), $request->request->get('_token'))) {
-            //$motoRepository->setCommentsToNull($id);
+
+            $cTRepository->setCtToClientToNull($id);
+            foreach ($motos as $moto) {
+                $idMoto = $moto->getId();
+                $cTRepository->setCtToVehiculeToNull($idMoto);
+            }
+            $this->container->get('security.token_storage')->setToken(null);
             $entityManager->remove($client);
             $entityManager->flush();
-            $this->container->get('security.token_storage')->setToken(null);
         }
 
         return $this->redirectToRoute('app_home');

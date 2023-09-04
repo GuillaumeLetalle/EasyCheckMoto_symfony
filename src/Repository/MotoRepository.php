@@ -21,6 +21,15 @@ class MotoRepository extends ServiceEntityRepository
         parent::__construct($registry, Moto::class);
     }
 
+    public function removeMotoClient($idUser)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+            DELETE FROM moto 
+            WHERE moto.client_id = '. $idUser;
+        $conn->executeQuery($sql);
+    }
+
 //    /**
 //     * @return Moto[] Returns an array of Moto objects
 //     */

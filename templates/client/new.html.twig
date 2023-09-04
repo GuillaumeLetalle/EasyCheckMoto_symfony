@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{# {% block title %}New Client{% endblock %} #}
-
 {% block body %}
 <h1>Inscription</h1>
     
@@ -9,15 +7,13 @@
 {{ include('client/_form.html.twig') }}
 
 <div class="btnformclient ">
+
 {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('app_client_index') }}">Liste Utilisateurs</a></br>
     {% endif %}
 
- {% if not app.user  %}
- <a href="{{ path('app_login') }}">Connexion</a></br>
- {% endif %} 
-
     <a href="{{ path('app_home') }}">Acceuil</a>
+    
 </div>
 </div>
 
