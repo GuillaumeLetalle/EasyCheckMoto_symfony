@@ -2,7 +2,6 @@
 
 
 {% block body %}
-    <h1>CT</h1>
 
     <table class="table">
         <tbody>
@@ -68,16 +67,24 @@
             </tr>
         </tbody>
     </table>
-    {# <a href="">Imprimer</a></br>  TODO#}
+    
     {% if is_granted('ROLE_TECHNICIEN') %}
+   
+    {% if ct.cteffectue == 0 %}
     <a href="{{ path('app_ct_edit', {'id': ct.id}) }}">edit</a></br>
-    <a href="{{ path('app_ct_indexTechnicien' , {'id': app.user.id})}}">Retour à la liste</a>
+    {% endif %}
+    
+    <a href="{{ path('app_ct_index' , {'id': app.user.id})}}">Retour à la liste</a>
     {% endif %}
 
    {% if is_granted('ROLE_CLIENT') %}
     <a href="{{ path('app_ct_index' , {'id': app.user.id})}}">Retour à la liste</a>
     {% endif %}
 
-    {# {{ include('ct/_delete_form.html.twig') }} #}
+    {% if is_granted('ROLE_ADMIN') %}
+    {{ include('ct/_delete_form.html.twig') }}
+    {% endif %}
+
+    
 
 {% endblock %}

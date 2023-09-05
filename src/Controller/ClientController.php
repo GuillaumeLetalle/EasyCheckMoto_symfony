@@ -89,7 +89,7 @@ class ClientController extends AbstractController
             $entityManager->persist($client);
             $entityManager->flush();
 
-            return $this->redirectToRoute('client_home',  [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home',  [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('client/edit.html.twig', [

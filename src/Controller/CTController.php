@@ -44,10 +44,6 @@ class CTController extends AbstractController
             
         }
 
-        return $this->render('ct/index.html.twig', [
-            'cts' => $cTRepository->findAll(),
-        ]);
-
     }
 
     #[Route('/tous', name: 'app_ct_tous', methods: ['GET'])]
