@@ -45,18 +45,20 @@ security:
             
     role_hierarchy :
         ROLE_CLIENT : ROLE_USER
-        # ROLE_TECHNICIEN : ROLE_USER
         ROLE_ADMIN : ROLE_TECHNICIEN
         ROLE_SUPER_ADMIN : [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
 
     access_control:
         - { path : ^/login, roles : PUBLIC_ACCESS }
         - { path: ^/client/new, roles: PUBLIC_ACCESS }
-        - { path: ^/technicien, roles: ROLE_TECHNICIEN }
-        - { path : ^/ct/new, roles : [ROLE_CLIENT, ROLE_TECHNICIEN] }
-        - { path : ^/moto/new, roles : [ROLE_CLIENT, ROLE_TECHNICIEN] }
-        - { path : ^/moto, roles : [ROLE_CLIENT, ROLE_ADMIN] }
         - { path: ^/client, roles: [ROLE_CLIENT, ROLE_ADMIN] }
+        - { path: ^/technicien, roles: ROLE_TECHNICIEN  }
+        - { path: ^/technicien/new, roles: ROLE_ADMIN } 
+        - { path : ^/ct/new, roles : [ROLE_CLIENT, ROLE_TECHNICIEN] }
+        - { path : ^/ct/delete, roles : ROLE_ADMIN }
+        - { path : ^/ct, roles : [ROLE_CLIENT, ROLE_TECHNICIEN] }
+        - { path : ^/ct/a_faire, roles : ROLE_TECHNICIEN }
+        - { path : ^/moto, roles : [ROLE_CLIENT, ROLE_ADMIN] }
 
 when@test:
     security:

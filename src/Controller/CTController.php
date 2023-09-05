@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use App\Form\CTType;
 use DateTimeInterface;
 use App\Form\CreateCTType;
+use App\Form\CreateCTTechnicienType;
 use App\Repository\CTRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,38 +23,50 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CTController extends AbstractController
 {
     
-    // Route pour client list leur CT
     #[Route('/index/{id?}', name: 'app_ct_index', methods: ['GET'])]
     public function index(CTRepository $cTRepository, $id): Response
     {
         $user = $this->getUser();
-        //$userId = $user->getId();
+
+        if ($user instanceof Client){
         
             return $this->render('ct/index.html.twig', [
                 'cts' => $cTRepository->findby(['client' => $id]),
             ]);
-    }
 
-    // Route pour technicien list leur CT
-    #[Route('/indexTechnicien/{id?}', name: 'app_ct_indexTechnicien', methods: ['GET'])]
-    public function indexTechnicien(CTRepository $cTRepository, $id): Response
-    {
+        }
+
+        if ($user instanceof Technicien){
+        
             return $this->render('ct/ctok.html.twig', [
                 'cts' => $cTRepository->findby(['technicien_controle' => $id]),
             ]);
+            
+        }
+
+        return $this->render('ct/index.html.twig', [
+            'cts' => $cTRepository->findAll(),
+        ]);
+
     }
 
-    // Route pour admin vois tout les CTs
-    #[Route('/indexAdmin', name: 'app_ct_indexAdmin', methods: ['GET'])]
-    public function indexAdmin(CTRepository $cTRepository): Response
+    #[Route('/tous', name: 'app_ct_tous', methods: ['GET'])]
+    public function ctTous(CTRepository $cTRepository): Response
     {
-            return $this->render('ct/index.html.twig', [
+            return $this->render('ct/allCt.html.twig', [
+                'cts' => $cTRepository->findAll(),
+            ]);
+    }
+
+    #[Route('/a_faire', name: 'app_ct_a_faire', methods: ['GET'])]
+    public function indexCTAFaire(CTRepository $cTRepository): Response
+    {
+            return $this->render('ct/ctafaire.html.twig', [
                 'cts' => $cTRepository->findAll(),
             ]);
     }
 
 
-    // Création d'un nouveau CT
     #[Route('/new', name: 'app_ct_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -68,6 +81,7 @@ class CTController extends AbstractController
                 $endHour->modify('+1 hour');
                 $ct->setFin($endHour);
                 $ct->setClient($user);
+                $ct->setCTEffectue(false);
                 $ct->setTitreRdv('RDV');
                 $entityManager->persist($ct);
                 $entityManager->flush();
@@ -84,6 +98,7 @@ class CTController extends AbstractController
                     $ct->setFin($endHour);
                     $ct->setTechnicienControle($user);
                     $ct->setTitreRdv('RDV');
+                    $ct->setCTEffectue(false);
                     $entityManager->persist($ct);
                     $entityManager->flush();
             
@@ -97,7 +112,6 @@ class CTController extends AbstractController
         ]);
     }
 
-    //Regarder un CT en détail
     #[Route('/{id}/show', name: 'app_ct_show', methods: ['GET'])]
     public function show(CT $ct): Response
     {
@@ -106,8 +120,6 @@ class CTController extends AbstractController
         ]);
     }
 
-
-    //modifier un CT
     #[Route('/{id}/edit', name: 'app_ct_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, CT $ct, EntityManagerInterface $entityManager): Response
     {
@@ -116,13 +128,11 @@ class CTController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            
             $ct->setTechnicienControle($user);
             $entityManager->persist($ct);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_ct_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_ct_a_faire', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('ct/edit.html.twig', [
@@ -131,8 +141,6 @@ class CTController extends AbstractController
         ]);
     }
 
-
-    //Supprimer un CT
     #[Route('/{id}/delete', name: 'app_ct_delete', methods: ['POST'])]
     public function delete(Request $request, CT $ct, EntityManagerInterface $entityManager): Response
     {
@@ -144,9 +152,4 @@ class CTController extends AbstractController
         return $this->redirectToRoute('app_ct_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route(path: '/calendar', name: "app_ct_calendar", methods: ['GET'])]
-    public function calendar(): Response
-    {
-        return $this->render('calendar.html.twig');
-    }
 }

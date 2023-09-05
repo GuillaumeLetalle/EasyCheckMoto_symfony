@@ -56,6 +56,9 @@ class CT
     #[ORM\Column(nullable: true)]
     private ?bool $moto_is_ok = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $CTEffectue = null;
+    
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $commentaires = null;
 
@@ -68,8 +71,6 @@ class CT
     #[ORM\ManyToOne(inversedBy: 'ct')]
     private ?Client $client = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $CTEffectue = null;
 
 
     public function getId(): ?int

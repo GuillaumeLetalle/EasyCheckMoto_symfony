@@ -1,26 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+{% if is_granted ('ROLE_CLIENT') %}
 <p>Bonjour, merci de renseigner au minima une moto dans votre garage pour réserver</p></br>
+{% endif %}
+
     <div class="container">
         <div class="row">
             <div class="col" >
-            {{ include('ct/_form.html.twig') }}
-             </div>
-        <div id='calendar' class="col" ></div>
+                {{ include('ct/_form.html.twig') }}
+            </div>
+            <div id='calendar' class="col" ></div>
         </div>
     </div>
-
-
-    {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('app_ct_index') }}">Contrôles Techniques</a>
-    {% endif %}
-
-    {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('app_ct_indexTechnicien' , {'id': app.user.id})}}">Retour</a>
-    {% endif %}
-    
+  
 {% endblock %}
+
 {% block javascripts %}
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js" integrity="sha256-dHUNnePy81fXq4D/wfu7cPsEIP7zl6MvLb84jtZf+UY=" crossorigin="anonymous"></script>
 

@@ -1,32 +1,24 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
 
     <table class="table">
         <thead>
             <tr>
                 <th>Debut</th>
-                <th>Fin</th>
-                <th>actions</th>
             </tr>
         </thead>
         <tbody>
         
         {% for ct in cts %}
-        {% if ct.cteffectue == 1 %}
-        
+        {% if ct.cteffectue == false %}
             <tr>
                 <td>{{ ct.debut ? ct.debut|date('d-m-Y H:i:s') : '' }}</td>
-                <td>{{ ct.fin ? ct.fin|date('d-m-Y H:i:s') : '' }}</td>
                 <td>
-                    
-                    <a href="{{ path('app_ct_show', {'id': ct.id}) }}">Voir</a>
-                  
+                    <a href="{{ path('app_ct_edit', {'id': ct.id}) }}">Prendre en charge</a>
                 </td>
             </tr>
-        
-        {% endif %}       
+        {% endif %}
         {% endfor %}
         
         </tbody>

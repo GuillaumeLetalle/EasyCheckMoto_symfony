@@ -22,13 +22,13 @@ class TechnicienType extends AbstractType
                 'label' => 'Utilisateur',
                 'required' => true,
             ])
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'Technicien' => 'ROLE_TECHNICIEN',
-                ],
-                'label' => 'Role',
-                'required' => true
-            ])
+            // ->add('roles', ChoiceType::class, [
+            //     'choices' => [
+            //         'Technicien' => 'ROLE_TECHNICIEN',
+            //     ],
+            //     'label' => 'Role',
+            //     'required' => true
+            // ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'les mots de passe ne correspondent pas',
@@ -52,15 +52,15 @@ class TechnicienType extends AbstractType
                 'required' => true,
             ]);
 
-        $builder->get('roles')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($rolesArray) {
-                    return count($rolesArray) ? $rolesArray[0] : null;
-                },
-                function ($rolesString) {
-                    return [$rolesString];
-                }
-            ));
+        // $builder->get('roles')
+        //     ->addModelTransformer(new CallbackTransformer(
+        //         function ($rolesArray) {
+        //             return count($rolesArray) ? $rolesArray[0] : null;
+        //         },
+        //         function ($rolesString) {
+        //             return [$rolesString];
+        //         }
+        //     ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

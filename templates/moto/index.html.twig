@@ -27,12 +27,16 @@
                 <td>{{ moto.annee }}</td>
                 <td>{{ moto.immatriculation }}</td>
                 <td>
-                    {# <a href="{{ path('app_moto_show', {'id': moto.id}) }}">Voir</a></br> #}
+                    {% if is_granted ('ROLE_ADMIN') %}
+                    <a href="{{ path('app_moto_show', {'id': moto.id}) }}">Voir</a></br>
+                    {% endif %}
+                    {% if is_granted ('ROLE_CLIENT') %}
                     <a href="{{ path('app_moto_edit', {'id': moto.id}) }}">Modifier</a>
                     <form method="post" action="{{ path('app_moto_delete', {'id': moto.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ moto.id) }}">
                         <button class="btn">Delete</button>
                     </form>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
