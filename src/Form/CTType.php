@@ -5,14 +5,12 @@ namespace App\Form;
 use App\Entity\CT;
 use App\Entity\Moto;
 use App\Entity\Client;
-use App\Entity\Technicien;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+
 
 class CTType extends AbstractType
 {
@@ -20,10 +18,6 @@ class CTType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            // ->add('debut', DateTimeType::class, [
-            //     'date_label' => 'Starts On',
-            // ])
-            // ->add('fin')
             ->add('vehicule_controle', EntityType::class, [
                 'label' => 'moto',
                 'class' => Moto::class,
@@ -53,14 +47,7 @@ class CTType extends AbstractType
                 'label'    => 'Contrôle Technique effectué',
                 'required' => false,
             ])
-            ->add('commentaires')
-            // ->add('technicien_controle', EntityType::class, [
-            //     'label' => 'technicien',
-            //      'class' => Technicien::class,
-            //      'choice_label' => 'name',
-            //      'required' => true,
-            //  ])
-            ;
+            ->add('commentaires');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

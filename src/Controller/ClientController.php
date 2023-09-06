@@ -2,21 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Moto;
 use App\Entity\Client;
 use App\Form\ClientType;
 use App\Repository\MotoRepository;
 use App\Repository\ClientRepository;
 use App\Repository\CTRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[Route('/client')]
 class ClientController extends AbstractController

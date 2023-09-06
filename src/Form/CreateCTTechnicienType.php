@@ -42,9 +42,9 @@ class CreateCTTechnicienType extends AbstractType
                 'required' => true,
                 'query_builder' => function (MotoRepository $er) {
                     return $er->createQueryBuilder('moto')
-                        ->join('moto.client', 'c')  // "client" doit correspondre au nom de la propriété dans l'entité Moto qui relie au client
+                        ->join('moto.client', 'c')  
                         ->addSelect('c')
-                        ->orderBy('moto.immatriculation', 'ASC'); // Vous pouvez trier les motos par immatriculation
+                        ->orderBy('moto.immatriculation', 'ASC'); 
                 },
                 'placeholder'=> 'Indiquer la moto du client selectionné',
             ])

@@ -191,7 +191,7 @@ class AppFixtures extends Fixture
             $user->setRoles(['ROLE_CLIENT']);
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $user,
-                'TrucdeOuf'
+                'Truc2Ouf!'
             );
             $user->setPassword($hashedPassword);
             $numero = $this->faker->randomElement($this->numerosTelephone);

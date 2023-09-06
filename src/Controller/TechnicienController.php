@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\CT;
 use App\Entity\Technicien;
 use App\Form\TechnicienType;
 use App\Repository\CTRepository;

@@ -5,11 +5,9 @@ namespace App\Form;
 use App\Entity\Technicien;
 use App\Validator\PasswordConstraints;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
@@ -22,13 +20,6 @@ class TechnicienType extends AbstractType
                 'label' => 'Utilisateur',
                 'required' => true,
             ])
-            // ->add('roles', ChoiceType::class, [
-            //     'choices' => [
-            //         'Technicien' => 'ROLE_TECHNICIEN',
-            //     ],
-            //     'label' => 'Role',
-            //     'required' => true
-            // ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'les mots de passe ne correspondent pas',
@@ -51,16 +42,6 @@ class TechnicienType extends AbstractType
                 'label' => 'prénom',
                 'required' => true,
             ]);
-
-        // $builder->get('roles')
-        //     ->addModelTransformer(new CallbackTransformer(
-        //         function ($rolesArray) {
-        //             return count($rolesArray) ? $rolesArray[0] : null;
-        //         },
-        //         function ($rolesString) {
-        //             return [$rolesString];
-        //         }
-        //     ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

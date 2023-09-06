@@ -3,13 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Client;
-use DateTime;
-use DateInterval;
 use App\Entity\CT;
 use App\Entity\Technicien;
-use Carbon\Carbon;
 use App\Form\CTType;
-use DateTimeInterface;
 use App\Form\CreateCTType;
 use App\Form\CreateCTTechnicienType;
 use App\Repository\CTRepository;
@@ -33,17 +29,14 @@ class CTController extends AbstractController
             return $this->render('ct/index.html.twig', [
                 'cts' => $cTRepository->findby(['client' => $id]),
             ]);
-
         }
 
         if ($user instanceof Technicien){
         
             return $this->render('ct/ctok.html.twig', [
                 'cts' => $cTRepository->findby(['technicien_controle' => $id]),
-            ]);
-            
+            ]);  
         }
-
     }
 
     #[Route('/tous', name: 'app_ct_tous', methods: ['GET'])]
